@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Merriweather:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: 'Amiri', 'Merriweather', serif; margin: 0; padding: 0; color: #2C2C2C; background-color: #FAF8F5; }
+    .top-navbar { width: 100%; height: 120px; background-color: #e7b86a; text-align: center; display: flex; align-items: center; justify-content: center; position: relative; }
+    .top-navbar img { height: 90px; object-fit: contain; }
+    .lang-switcher { position: absolute; top: 15px; left: 15px; display: flex; gap: 12px; background: rgba(255, 255, 255, 0.4); padding: 5px 10px; border-radius: 20px; }
+    .lang-switcher a { text-decoration: none; color: #800020; font-size: 14px; font-weight: 700; font-family: sans-serif; border-bottom: 2px solid transparent; transition: 0.2s; }
+    .lang-switcher a.active { border-bottom: 2px solid #800020; }
+    .lang-switcher a:hover { opacity: 0.7; }
+    .bottom-navbar { position: fixed; bottom: 0; width: 100%; height: 6px; background-color: #800020; z-index: 10; }
+    .content-wrapper { padding: 20px; padding-bottom: 40px; }
+    .content { column-count: 2; column-gap: 40px; }
+    .menu-section { break-inside: avoid; page-break-inside: avoid; margin-bottom: 25px; display: inline-block; width: 100%; }
+    .category { color: #800020; font-size: 20px; font-weight: 900; border-bottom: 2px solid #e7b86a; margin: 0 0 15px 0; padding-bottom: 5px; display: flex; justify-content: space-between; align-items: baseline; }
+    .category-price { color: #000000; font-size: 16px; font-weight: 700; font-family: 'Merriweather', serif; }
+    .menu-item { margin-bottom: 15px; }
+    .item-header { display: flex; justify-content: space-between; margin-bottom: 4px; align-items: flex-end; }
+    .item-name { font-size: 17px; font-weight: 700; color: #2C2C2C; }
+    .item-price { font-size: 14px; font-weight: 700; color: #000000; white-space: nowrap; padding-right: 10px; font-family: 'Merriweather', serif; }
+    .item-desc { font-size: 14px; color: #555; line-height: 1.5; display: block; margin-top: 3px; padding-left: 10px; }
+    @media (max-width: 768px) {
+        .content { column-count: 1; }
+        .lang-switcher { top: 10px; left: 10px; font-size: 12px; padding: 4px 8px; }
+        .top-navbar img { margin-top: 15px; }
+    }
+</style>
+</head>
+<body>
+    <div class="top-navbar">
+        <img src="logo.png" alt="Apartment Logo">
+        <div class="lang-switcher">
+            <a href="index.html">Türkçe</a>
+            <a href="en.html">English</a>
+            <a href="ar.html" class="active">العربية</a>
+        </div>
+    </div>
+    
+    <div class="content-wrapper">
+        <div class="content">
+            <div class="menu-section">
+                <div class="category">قهوة ساخنة</div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">اسبريسو</span><span class="item-price">180,00 ₺</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">أمريكانو</span><span class="item-price">200,00 ₺</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">كورتادو</span><span class="item-price">220,00 ₺</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">فلات وايت</span><span class="item-price">230,00 ₺</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">لاتيه</span><span class="item-price">240,00 ₺</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">كابتشينو</span><span class="item-price">240,00 ₺</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">ماتشا لاتيه</span><span class="item-price">300,00 ₺</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">قهوة تركية</span><span class="item-price">180,00 ₺</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">قهوة مفلترة</span><span class="item-price">210,00 ₺</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">تقطير V60</span><span class="item-price">260,00 ₺</span></div></div>
+            </div>
+
+            <div class="menu-section">
+                <div class="category">قهوة باردة</div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">آيس لاتيه</span><span class="item-price">260,00 ₺</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">آيس أمريكانو</span><span class="item-price">220,00 ₺</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">آيس كورتادو</span><span class="item-price">240,00 ₺</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">آيس ماتشا لاتيه</span><span class="item-price">320,00 ₺</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">تقطير بارد</span><span class="item-price">270,00 ₺</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">آيس تقطير V60</span><span class="item-price">275,00 ₺</span></div></div>
+            </div>
+
+            <div class="menu-section">
+                <div class="category">شاي</div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">شاي مخمر</span><span class="item-price">90,00 ₺</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">شاي أخضر</span><span class="item-price">230,00 ₺</span></div></div>
+            </div>
+
+            <div class="menu-section">
+                <div class="category">مشروبات أخرى</div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">شوكولاتة ساخنة</span><span class="item-price">240,00 ₺</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">سحلب</span><span class="item-price">240,00 ₺</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">كمبوتشا</span><span class="item-price">300,00 ₺</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">عصير برتقال</span><span class="item-price">270,00 ₺</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">مياه غازية</span><span class="item-price">90,00 ₺</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">مياه معدنية</span><span class="item-price">75,00 ₺</span></div></div>
+            </div>
+
+            <div class="menu-section">
+                <div class="category">بيض عضوي</div>
+                <div class="menu-item">
+                    <div class="item-header"><span class="item-name">بيض مخفوق كونفي</span><span class="item-price">385,00 ₺</span></div>
+                    <div class="item-desc">بيض، طماطم وفلفل كونفي، زيت حار، خبز العجين المخمر</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-header"><span class="item-name">طبق سيميت</span><span class="item-price">385,00 ₺</span></div>
+                    <div class="item-desc">جبنة حلوم، بيض، طماطم وردية، نكتارين، سيميت</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-header"><span class="item-name">بيض عيون مع البطاطس</span><span class="item-price">385,00 ₺</span></div>
+                    <div class="item-desc">صلصة زبادي مصفى بالطحينة، بطاطس، جبن قشقوان، بيض</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-header"><span class="item-name">وعاء جلبر</span><span class="item-price">345,00 ₺</span></div>
+                    <div class="item-desc">زبادي مصفى، بيض، بيستو طماطم مجففة، طحينة، سيميت خالي من الجلوتين</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-header"><span class="item-name">مقلاة منمن</span><span class="item-price">475,00 ₺</span></div>
+                    <div class="item-desc">طماطم طازجة، بيض، جبنة إيزيني، خبز العجين المخمر</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-header"><span class="item-name">توست جبنة إيزيني</span><span class="item-price">385,00 ₺</span></div>
+                    <div class="item-desc">جبنة إيزيني، زعتر طازج، طماطم وردية، خبز العجين المخمر</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-header"><span class="item-name">توست أفوكادو بيستو</span><span class="item-price">435,00 ₺</span></div>
+                    <div class="item-desc">صلصة بيستو الريحان، أفوكادو، جبنة شيدر، جبنة موزاريلا، جبنة قشقوان، خبز العجين المخمر</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-header"><span class="item-name">تارتين السلمون</span><span class="item-price">545,00 ₺</span></div>
+                    <div class="item-desc">خبز خالي من الجلوتين، أفوكادو، سلمون مدخن، كبر، ثوم معمر، طماطم كونفي</div>
+                </div>
+            </div>
+
+            <div class="menu-section">
+                <div class="category">سندويشات</div>
+                <div class="menu-item">
+                    <div class="item-header"><span class="item-name">كرواسون بيستو</span></div>
+                    <div class="item-desc">كرواسون سادة، بيستو الريحان، طماطم وردية، جبنة موزاريلا</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-header"><span class="item-name">ساندويتش ديك رومي</span><span class="item-price">435,00 ₺</span></div>
+                    <div class="item-desc">خبز العجين المخمر، صلصة ريمولاد المخلل، جرجير، مخلل ألماني، لحم ديك رومي، جبن قشقوان طازج</div>
+                </div>
+            </div>
+
+            <div class="menu-section">
+                <div class="category">سلطانيات (أطباق)</div>
+                <div class="menu-item">
+                    <div class="item-header"><span class="item-name">غرانولا أبارتمنت</span><span class="item-price">365,00 ₺</span></div>
+                    <div class="item-desc">زبادي مصفى، غرانولا، زبدة الفول السوداني، بذور الشيا، بذور الكتان، موز، عنب أبيض</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-header"><span class="item-name">بيرشر موسلي</span><span class="item-price">345,00 ₺</span></div>
+                    <div class="item-desc">شوفان، بذور اليقطين، شيا، بذور الكتان، تفاح أخضر مبشور، قرفة مطحونة، حليب اللوز، هريس التمر</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-header"><span class="item-name">أفوكادو مسلوق</span><span class="item-price">365,00 ₺</span></div>
+                    <div class="item-desc">أفوكادو، بيض مسلوق، جرجير، بارميزان مبشور</div>
+                </div>
+                <div class="menu-item">
+                    <div class="item-header"><span class="item-name">طبق صحي (فيت)</span><span class="item-price">385,00 ₺</span></div>
+                    <div class="item-desc">بيض، أفوكادو، جرجير، طماطم كرزية، جبنة إيزيني، جوز</div>
+                </div>
+            </div>
+            
+            <div class="menu-section">
+                <div class="category"><span>كوكيز</span> <span class="category-price">135,00 ₺</span></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">رقائق الشوكولاتة</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">كوكيز أماريتي</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">كوكيز الشوفان</span></div></div>
+            </div>
+
+            <div class="menu-section">
+                <div class="category"><span>كيك</span> <span class="category-price">275,00 ₺</span></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">كيك الليمون والتوت الأزرق</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">خبز الموز بالشوكولاتة</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">كيك الأناناس خالي من السكر</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">براوني الكرز النباتي</span></div></div>
+            </div>
+
+            <div class="menu-section">
+                <div class="category"><span>حلويات نية (Raw)</span> <span class="category-price">245,00 ₺</span></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">لوز نيء</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">بذور اليقطين نيئة</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">كاجو نيء</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">تمر الفول السوداني للطاقة</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">سنيكرز الشوكولاتة المقرمشة</span></div></div>
+            </div>
+
+            <div class="menu-section">
+                <div class="category"><span>تارت</span> <span class="category-price">295,00 ₺</span></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">كيش الفطر الكريمي</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">كيش الهليون</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">كيش السبانخ</span></div></div>
+            </div>
+
+            <div class="menu-section">
+                <div class="category"><span>موالح</span> <span class="category-price">135,00 ₺</span></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">معجنات السيز (Siyez)</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">معجنات القمح الكامل بالأعشاب</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">معجنات الزيتون</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">سيميت خالي من الجلوتين</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">كيك مالح خالي من الجلوتين بالخضار والجبن</span></div></div>
+            </div>
+
+            <div class="menu-section">
+                <div class="category"><span>تشيز كيك</span> <span class="category-price">325,00 ₺</span></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">تشيز كيك الكرز والتوت</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">تشيز كيك الليمون</span></div></div>
+            </div>
+            
+        </div>
+    </div>
+    <div class="bottom-navbar"></div>
+</body>
+</html>
