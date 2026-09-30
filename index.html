@@ -2,173 +2,38 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<!-- Mobil cihazlarda düzgün görünmesi için kritik etiket -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
 <style>
-    *, *::before, *::after { 
-        box-sizing: border-box; 
-    }
-    
-    body {
-        font-family: 'Merriweather', serif;
-        margin: 0;
-        padding: 0;
-        color: #2C2C2C;
-        background-color: #FAF8F5;
-    }
-    
-    /* Üst Bar ve Logo */
-    .top-navbar {
-        width: 100%;
-        height: 120px; 
-        background-color: #e7b86a; 
-        text-align: center;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-    }
-    
-    .top-navbar img {
-        height: 90px; 
-        object-fit: contain;
-    }
-    
-    /* Dil Seçici (Sağ Üst) */
-    .lang-switcher {
-        position: absolute;
-        top: 15px;
-        right: 15px;
-        display: flex;
-        gap: 12px;
-        background: rgba(255, 255, 255, 0.4);
-        padding: 5px 10px;
-        border-radius: 20px;
-    }
-
-    .lang-switcher a {
-        text-decoration: none;
-        color: #800020;
-        font-size: 14px;
-        font-weight: 700;
-        font-family: sans-serif;
-        border-bottom: 2px solid transparent;
-        transition: 0.2s;
-    }
-
-    .lang-switcher a.active {
-        border-bottom: 2px solid #800020;
-    }
-
-    .lang-switcher a:hover {
-        opacity: 0.7;
-    }
-    
-    .bottom-navbar {
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-        height: 6px; 
-        background-color: #800020;
-        z-index: 10;
-    }
-    
-    .content-wrapper {
-        padding: 20px;
-        padding-bottom: 40px;
-    }
-    
-    .content {
-        column-count: 2;
-        column-gap: 40px;
-    }
-    
-    .menu-section {
-        break-inside: avoid;
-        page-break-inside: avoid;
-        margin-bottom: 25px;
-        display: inline-block; 
-        width: 100%;
-    }
-    
-    .category {
-        color: #800020;
-        font-size: 18px;
-        font-weight: 900; 
-        text-transform: uppercase;
-        border-bottom: 2px solid #e7b86a;
-        margin: 0 0 15px 0;
-        padding-bottom: 5px;
-        letter-spacing: 0.5px;
-        display: flex;
-        justify-content: space-between;
-        align-items: baseline;
-    }
-    
-    .category-price {
-        color: #000000;
-        font-size: 15px;
-        font-weight: 700;
-    }
-    
-    .menu-item {
-        margin-bottom: 15px;
-    }
-    
-    .item-header {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 4px;
-        align-items: flex-end;
-    }
-    
-    .item-name {
-        font-size: 15px;
-        font-weight: 700;
-        color: #2C2C2C;
-    }
-    
-    .item-price {
-        font-size: 15px;
-        font-weight: 700;
-        color: #000000; 
-        white-space: nowrap;
-        padding-left: 10px;
-    }
-    
-    .item-desc {
-        font-size: 13px;
-        color: #555;
-        line-height: 1.4;
-        display: block;
-        margin-top: 3px;
-    }
-
-    /* MOBİL EKRANLAR İÇİN DÜZENLEME */
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: 'Merriweather', serif; margin: 0; padding: 0; color: #2C2C2C; background-color: #FAF8F5; }
+    .top-navbar { width: 100%; height: 120px; background-color: #e7b86a; text-align: center; display: flex; align-items: center; justify-content: center; position: relative; }
+    .top-navbar img { height: 90px; object-fit: contain; }
+    .lang-switcher { position: absolute; top: 15px; right: 15px; display: flex; gap: 12px; background: rgba(255, 255, 255, 0.4); padding: 5px 10px; border-radius: 20px; }
+    .lang-switcher a { text-decoration: none; color: #800020; font-size: 14px; font-weight: 700; font-family: sans-serif; border-bottom: 2px solid transparent; transition: 0.2s; }
+    .lang-switcher a.active { border-bottom: 2px solid #800020; }
+    .lang-switcher a:hover { opacity: 0.7; }
+    .bottom-navbar { position: fixed; bottom: 0; width: 100%; height: 6px; background-color: #800020; z-index: 10; }
+    .content-wrapper { padding: 20px; padding-bottom: 40px; }
+    .content { column-count: 2; column-gap: 40px; }
+    .menu-section { break-inside: avoid; page-break-inside: avoid; margin-bottom: 25px; display: inline-block; width: 100%; }
+    .category { color: #800020; font-size: 18px; font-weight: 900; text-transform: uppercase; border-bottom: 2px solid #e7b86a; margin: 0 0 15px 0; padding-bottom: 5px; letter-spacing: 0.5px; display: flex; justify-content: space-between; align-items: baseline; }
+    .category-price { color: #000000; font-size: 15px; font-weight: 700; }
+    .menu-item { margin-bottom: 15px; }
+    .item-header { display: flex; justify-content: space-between; margin-bottom: 4px; align-items: flex-end; }
+    .item-name { font-size: 15px; font-weight: 700; color: #2C2C2C; }
+    .item-price { font-size: 15px; font-weight: 700; color: #000000; white-space: nowrap; padding-left: 10px; }
+    .item-desc { font-size: 13px; color: #555; line-height: 1.4; display: block; margin-top: 3px; }
     @media (max-width: 768px) {
-        .content {
-            column-count: 1; /* Telefonda tek sütun yapar */
-        }
-        .lang-switcher {
-            top: 10px;
-            right: 10px;
-            font-size: 12px;
-            padding: 4px 8px;
-        }
-        .top-navbar img {
-            margin-top: 15px;
-        }
+        .content { column-count: 1; }
+        .lang-switcher { top: 10px; right: 10px; font-size: 12px; padding: 4px 8px; }
+        .top-navbar img { margin-top: 15px; }
     }
 </style>
 </head>
 <body>
-    
     <div class="top-navbar">
-        <!-- Buradaki src kısmına kendi Logonuzun linkini koymalısınız -->
         <img src="logo.png" alt="Apartment Logo">
-        
-        <!-- Dil Seçenekleri -->
         <div class="lang-switcher">
             <a href="index.html" class="active">Türkçe</a>
             <a href="en.html">English</a>
@@ -191,6 +56,8 @@
                 <div class="menu-item"><div class="item-header"><span class="item-name">Türk Kahvesi</span><span class="item-price">180,00 ₺</span></div></div>
                 <div class="menu-item"><div class="item-header"><span class="item-name">Filtre Kahve</span><span class="item-price">210,00 ₺</span></div></div>
                 <div class="menu-item"><div class="item-header"><span class="item-name">V60 Demleme</span><span class="item-price">260,00 ₺</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Macchiato</span><span class="item-price">200,00 ₺</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Spanish latte</span><span class="item-price">265,00 ₺</span></div></div>
             </div>
 
             <div class="menu-section">
@@ -201,6 +68,7 @@
                 <div class="menu-item"><div class="item-header"><span class="item-name">Ice Matcha Latte</span><span class="item-price">320,00 ₺</span></div></div>
                 <div class="menu-item"><div class="item-header"><span class="item-name">Cold Drip</span><span class="item-price">270,00 ₺</span></div></div>
                 <div class="menu-item"><div class="item-header"><span class="item-name">Ice V60 Demleme</span><span class="item-price">275,00 ₺</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Ice spanish latte</span><span class="item-price">280,00 ₺</span></div></div>
             </div>
 
             <div class="menu-section">
@@ -217,6 +85,7 @@
                 <div class="menu-item"><div class="item-header"><span class="item-name">Portakal Suyu</span><span class="item-price">270,00 ₺</span></div></div>
                 <div class="menu-item"><div class="item-header"><span class="item-name">Soda</span><span class="item-price">90,00 ₺</span></div></div>
                 <div class="menu-item"><div class="item-header"><span class="item-name">Su</span><span class="item-price">75,00 ₺</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">APT</span><span class="item-price">270,00 ₺</span></div></div>
             </div>
 
             <div class="menu-section">
@@ -299,7 +168,8 @@
                 <div class="menu-item"><div class="item-header"><span class="item-name">Limonlu yaban mersinli kek</span></div></div>
                 <div class="menu-item"><div class="item-header"><span class="item-name">Chocolate banana bread kek</span></div></div>
                 <div class="menu-item"><div class="item-header"><span class="item-name">Ananaslı şekersiz kek</span></div></div>
-                <div class="menu-item"><div class="item-header"><span class="item-name">Vegan vişneli brownie</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Vegan brownie</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Portakallı brownie</span></div></div>
             </div>
 
             <div class="menu-section">
@@ -308,7 +178,7 @@
                 <div class="menu-item"><div class="item-header"><span class="item-name">Kabak çekirdekli raw</span></div></div>
                 <div class="menu-item"><div class="item-header"><span class="item-name">Kaju raw</span></div></div>
                 <div class="menu-item"><div class="item-header"><span class="item-name">Penaut power date</span></div></div>
-                <div class="menu-item"><div class="item-header"><span class="item-name">Crunu chocolate snikers</span></div></div>
+                <div class="menu-item"><div class="item-header"><span class="item-name">Crunch chocolate snikers</span></div></div>
             </div>
 
             <div class="menu-section">
