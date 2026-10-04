@@ -19,7 +19,6 @@
     .content-wrapper { padding: 10px 20px 40px 20px; }
     .content { column-count: 2; column-gap: 40px; }
     
-    /* --- YENİ: Sekme (Tab) Menüsü --- */
     .tab-container {
         display: flex;
         justify-content: center;
@@ -56,7 +55,6 @@
         to { opacity: 1; transform: translateY(0); }
     }
 
-    /* --- Normal Menü Stilleri --- */
     .menu-section { break-inside: avoid; page-break-inside: avoid; margin-bottom: 25px; display: inline-block; width: 100%; }
     .category { color: #800020; font-size: 18px; font-weight: 900; text-transform: uppercase; border-bottom: 2px solid #e7b86a; margin: 0 0 15px 0; padding-bottom: 5px; letter-spacing: 0.5px; display: flex; justify-content: space-between; align-items: baseline; }
     .category-price { color: #000000; font-size: 15px; font-weight: 700; }
@@ -67,7 +65,6 @@
     .item-price { font-size: 15px; font-weight: 700; color: #000000; white-space: nowrap; padding-left: 10px; }
     .item-desc { font-size: 13px; color: #555; line-height: 1.4; display: block; margin-top: 3px; }
 
-    /* --- YENİ: Fotoğraflı Kart Tasarımı --- */
     .card-menu-item {
         background-color: #fff;
         border-radius: 12px;
@@ -83,7 +80,7 @@
         width: 100%;
         height: 220px;
         object-fit: cover;
-        background-color: #e7b86a; /* Resim yüklenene kadar görünecek bekleme rengi */
+        background-color: #e7b86a;
         display: block;
         border-bottom: 3px solid #800020;
     }
@@ -111,145 +108,15 @@
         </div>
     </div>
     
-    <!-- YENİ: Sekme Butonları -->
     <div class="tab-container">
-        <button class="tab-btn active" onclick="openTab(event, 'tab-yiyecek')">Yiyecekler</button>
-        <button class="tab-btn" onclick="openTab(event, 'tab-icecek')">İçecekler & Fırın</button>
+        <button class="tab-btn active" onclick="openTab(event, 'tab-icecek')">İçecekler & Fırın</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab-yiyecek')">Yiyecekler</button>
     </div>
 
     <div class="content-wrapper">
         
-        <!-- ================= YİYECEKLER (FOTOĞRAFLI BÖLÜM) ================= -->
-        <div id="tab-yiyecek" class="tab-content active">
-            <div class="content">
-                
-                <div class="menu-section">
-                    <div class="category">Organik Yumurtalar</div>
-                    
-                    <!-- Fotoğrafsız Ürün -->
-                    <div class="menu-item">
-                        <div class="item-header"><span class="item-name">Konfi Çırpılmış</span><span class="item-price">385,00 ₺</span></div>
-                        <div class="item-desc">Yumurta, konfi domates ve biber, ezine peyniri, zeytin, susam, acı yağ, ekşi maya ekmek</div>
-                    </div>
-
-                    <!-- FOTOĞRAFLI ÜRÜNLER -->
-                    <div class="card-menu-item">
-                        <!-- Görseli buraya ekleyeceksin -->
-                        <img src="fotograf-linki-buraya.jpg" alt="Simit Tabak">
-                        <div class="card-content">
-                            <div class="item-header"><span class="item-name">Simit Tabak</span><span class="item-price">385,00 ₺</span></div>
-                            <div class="item-desc">Hellim peyniri, yumurta, pembe domates, nektarin, glutensiz simit</div>
-                        </div>
-                    </div>
-
-                    <div class="card-menu-item">
-                        <img src="fotograf-linki-buraya.jpg" alt="Patatesli Göz Yumurta">
-                        <div class="card-content">
-                            <div class="item-header"><span class="item-name">Patatesli Göz Yumurta</span><span class="item-price">385,00 ₺</span></div>
-                            <div class="item-desc">Tahinli ve süzme yoğurtlu dip sos, patates, kaşar peyniri, yumurta</div>
-                        </div>
-                    </div>
-
-                    <div class="card-menu-item">
-                        <img src="fotograf-linki-buraya.jpg" alt="Çılbır Kase">
-                        <div class="card-content">
-                            <div class="item-header"><span class="item-name">Çılbır Kase</span><span class="item-price">345,00 ₺</span></div>
-                            <div class="item-desc">Süzme yoğurt, kayısı yumurta, kuru domates pesto, tahin, glutensiz simit</div>
-                        </div>
-                    </div>
-
-                    <div class="card-menu-item">
-                        <img src="fotograf-linki-buraya.jpg" alt="Menemen Tava">
-                        <div class="card-content">
-                            <div class="item-header"><span class="item-name">Menemen Tava</span><span class="item-price">475,00 ₺</span></div>
-                            <div class="item-desc">Taze domates, yumurta, ezine peyniri, fesleğen, ekşi maya ekmek</div>
-                        </div>
-                    </div>
-
-                    <div class="card-menu-item">
-                        <img src="fotograf-linki-buraya.jpg" alt="Ezine Tost">
-                        <div class="card-content">
-                            <div class="item-header"><span class="item-name">Ezine Tost</span><span class="item-price">385,00 ₺</span></div>
-                            <div class="item-desc">Ezine peyniri, taze kekik, pembe domates, Alman turşusu, ekşi maya ekmek</div>
-                        </div>
-                    </div>
-
-                    <div class="card-menu-item">
-                        <img src="fotograf-linki-buraya.jpg" alt="Pesto Avokado Apartment Tost">
-                        <div class="card-content">
-                            <div class="item-header"><span class="item-name">Pesto Avokado Apartment Tost</span><span class="item-price">435,00 ₺</span></div>
-                            <div class="item-desc">Fesleğen pesto sos, avokado, cheddar peyniri, dil peyniri, kaşar peyniri, ekşi maya ekmek, Alman turşusu</div>
-                        </div>
-                    </div>
-
-                    <div class="card-menu-item">
-                        <img src="fotograf-linki-buraya.jpg" alt="Somon Tartine">
-                        <div class="card-content">
-                            <div class="item-header"><span class="item-name">Somon Tartine</span><span class="item-price">545,00 ₺</span></div>
-                            <div class="item-desc">Glutensiz ekmek, avokado püre, somon füme, kapari, frenk soğanı, konfi domates</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="menu-section">
-                    <div class="category"><span>Sandviçler</span> <span class="category-price">435,00 ₺</span></div>
-                    
-                    <div class="card-menu-item">
-                        <img src="fotograf-linki-buraya.jpg" alt="Apartment Kruvasan Pesto">
-                        <div class="card-content">
-                            <div class="item-header"><span class="item-name">Apartment Kruvasan Pesto</span></div>
-                            <div class="item-desc">Sade kruvasan, fesleğen pesto, pembe domates, mozzarella peyniri</div>
-                        </div>
-                    </div>
-
-                    <div class="card-menu-item">
-                        <img src="fotograf-linki-buraya.jpg" alt="Hindi Jambon Sandviç">
-                        <div class="card-content">
-                            <div class="item-header"><span class="item-name">Hindi Jambon Sandviç</span></div>
-                            <div class="item-desc">Ekşi maya ekmek, remoulade turşu sos, roka, Alman turşusu, hindi jambon, taze kaşar dilim peynir</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="menu-section">
-                    <div class="category">Kaseler</div>
-                    
-                    <div class="card-menu-item">
-                        <img src="fotograf-linki-buraya.jpg" alt="Apartment Granola">
-                        <div class="card-content">
-                            <div class="item-header"><span class="item-name">Apartment Granola</span><span class="item-price">365,00 ₺</span></div>
-                            <div class="item-desc">Süzme yoğurt, granola, fıstık ezmesi, chia tohumu, keten tohumu, muz, beyaz üzüm</div>
-                        </div>
-                    </div>
-
-                    <div class="card-menu-item">
-                        <img src="fotograf-linki-buraya.jpg" alt="Bircher Muesli">
-                        <div class="card-content">
-                            <div class="item-header"><span class="item-name">Bircher Muesli</span><span class="item-price">345,00 ₺</span></div>
-                            <div class="item-desc">Yulaf ezmesi, kabak çekirdeği, chia, keten tohumu, yeşil elma rendesi, tarçın, badem sütü, hurma püresi, muz, file badem</div>
-                        </div>
-                    </div>
-
-                    <!-- Fotoğrafsız Ürün -->
-                    <div class="menu-item">
-                        <div class="item-header"><span class="item-name">Poşe Avokado</span><span class="item-price">365,00 ₺</span></div>
-                        <div class="item-desc">Avokado, poşe yumurta, roka, parmesan rendesi</div>
-                    </div>
-
-                    <div class="card-menu-item">
-                        <img src="fotograf-linki-buraya.jpg" alt="Fit Tabak">
-                        <div class="card-content">
-                            <div class="item-header"><span class="item-name">Fit Tabak</span><span class="item-price">385,00 ₺</span></div>
-                            <div class="item-desc">Yumurta, avokado, roka, kokteyl domates, ezine peyniri, ceviz, fırınlanmış tatlı patates</div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        
-        <!-- ================= İÇECEKLER VE FIRIN BÖLÜMÜ (STANDART LİSTE) ================= -->
-        <div id="tab-icecek" class="tab-content">
+        <!-- ================= İÇECEKLER VE FIRIN ================= -->
+        <div id="tab-icecek" class="tab-content active">
             <div class="content">
                 
                 <div class="menu-section">
@@ -436,6 +303,130 @@
                         <div class="item-desc">Labne, şeker, un, yumurta, tereyağı, limon curd</div>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <!-- ================= YİYECEKLER (FOTOĞRAFLI BÖLÜM) ================= -->
+        <div id="tab-yiyecek" class="tab-content">
+            <div class="content">
+                
+                <div class="menu-section">
+                    <div class="category">Organik Yumurtalar</div>
+                    
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Konfi Çırpılmış</span><span class="item-price">385,00 ₺</span></div>
+                        <div class="item-desc">Yumurta, konfi domates ve biber, ezine peyniri, zeytin, susam, acı yağ, ekşi maya ekmek</div>
+                    </div>
+
+                    <div class="card-menu-item">
+                        <img src="simit-tabak.jpg" alt="Simit Tabak">
+                        <div class="card-content">
+                            <div class="item-header"><span class="item-name">Simit Tabak</span><span class="item-price">385,00 ₺</span></div>
+                            <div class="item-desc">Hellim peyniri, yumurta, pembe domates, nektarin, glutensiz simit</div>
+                        </div>
+                    </div>
+
+                    <div class="card-menu-item">
+                        <img src="patatesli-goz-yumurta.jpg" alt="Patatesli Göz Yumurta">
+                        <div class="card-content">
+                            <div class="item-header"><span class="item-name">Patatesli Göz Yumurta</span><span class="item-price">385,00 ₺</span></div>
+                            <div class="item-desc">Tahinli ve süzme yoğurtlu dip sos, patates, kaşar peyniri, yumurta</div>
+                        </div>
+                    </div>
+
+                    <div class="card-menu-item">
+                        <img src="cilbir-kase.jpg" alt="Çılbır Kase">
+                        <div class="card-content">
+                            <div class="item-header"><span class="item-name">Çılbır Kase</span><span class="item-price">345,00 ₺</span></div>
+                            <div class="item-desc">Süzme yoğurt, kayısı yumurta, kuru domates pesto, tahin, glutensiz simit</div>
+                        </div>
+                    </div>
+
+                    <div class="card-menu-item">
+                        <img src="menemen-tava.jpg" alt="Menemen Tava">
+                        <div class="card-content">
+                            <div class="item-header"><span class="item-name">Menemen Tava</span><span class="item-price">475,00 ₺</span></div>
+                            <div class="item-desc">Taze domates, yumurta, ezine peyniri, fesleğen, ekşi maya ekmek</div>
+                        </div>
+                    </div>
+
+                    <div class="card-menu-item">
+                        <img src="ezine-tost.jpg" alt="Ezine Tost">
+                        <div class="card-content">
+                            <div class="item-header"><span class="item-name">Ezine Tost</span><span class="item-price">385,00 ₺</span></div>
+                            <div class="item-desc">Ezine peyniri, taze kekik, pembe domates, Alman turşusu, ekşi maya ekmek</div>
+                        </div>
+                    </div>
+
+                    <div class="card-menu-item">
+                        <img src="pesto-avokado-tost.jpg" alt="Pesto Avokado Apartment Tost">
+                        <div class="card-content">
+                            <div class="item-header"><span class="item-name">Pesto Avokado Apartment Tost</span><span class="item-price">435,00 ₺</span></div>
+                            <div class="item-desc">Fesleğen pesto sos, avokado, cheddar peyniri, dil peyniri, kaşar peyniri, ekşi maya ekmek, Alman turşusu</div>
+                        </div>
+                    </div>
+
+                    <div class="card-menu-item">
+                        <img src="somon-tartine.jpg" alt="Somon Tartine">
+                        <div class="card-content">
+                            <div class="item-header"><span class="item-name">Somon Tartine</span><span class="item-price">545,00 ₺</span></div>
+                            <div class="item-desc">Glutensiz ekmek, avokado püre, somon füme, kapari, frenk soğanı, konfi domates</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <div class="category"><span>Sandviçler</span> <span class="category-price">435,00 ₺</span></div>
+                    
+                    <div class="card-menu-item">
+                        <img src="apartment-kruvasan-pesto.jpg" alt="Apartment Kruvasan Pesto">
+                        <div class="card-content">
+                            <div class="item-header"><span class="item-name">Apartment Kruvasan Pesto</span></div>
+                            <div class="item-desc">Sade kruvasan, fesleğen pesto, pembe domates, mozzarella peyniri</div>
+                        </div>
+                    </div>
+
+                    <div class="card-menu-item">
+                        <img src="hindi-jambon-sandvic.jpg" alt="Hindi Jambon Sandviç">
+                        <div class="card-content">
+                            <div class="item-header"><span class="item-name">Hindi Jambon Sandviç</span></div>
+                            <div class="item-desc">Ekşi maya ekmek, remoulade turşu sos, roka, Alman turşusu, hindi jambon, taze kaşar dilim peynir</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <div class="category">Kaseler</div>
+                    
+                    <div class="card-menu-item">
+                        <img src="apartment-granola.jpg" alt="Apartment Granola">
+                        <div class="card-content">
+                            <div class="item-header"><span class="item-name">Apartment Granola</span><span class="item-price">365,00 ₺</span></div>
+                            <div class="item-desc">Süzme yoğurt, granola, fıstık ezmesi, chia tohumu, keten tohumu, muz, beyaz üzüm</div>
+                        </div>
+                    </div>
+
+                    <div class="card-menu-item">
+                        <img src="bircher-muesli.jpg" alt="Bircher Muesli">
+                        <div class="card-content">
+                            <div class="item-header"><span class="item-name">Bircher Muesli</span><span class="item-price">345,00 ₺</span></div>
+                            <div class="item-desc">Yulaf ezmesi, kabak çekirdeği, chia, keten tohumu, yeşil elma rendesi, tarçın, badem sütü, hurma püresi, muz, file badem</div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Poşe Avokado</span><span class="item-price">365,00 ₺</span></div>
+                        <div class="item-desc">Avokado, poşe yumurta, roka, parmesan rendesi</div>
+                    </div>
+
+                    <div class="card-menu-item">
+                        <img src="fit-tabak.jpg" alt="Fit Tabak">
+                        <div class="card-content">
+                            <div class="item-header"><span class="item-name">Fit Tabak</span><span class="item-price">385,00 ₺</span></div>
+                            <div class="item-desc">Yumurta, avokado, roka, kokteyl domates, ezine peyniri, ceviz, fırınlanmış tatlı patates</div>
+                        </div>
+                    </div>
+                </div>
 
             </div>
         </div>
@@ -444,7 +435,6 @@
     
     <div class="bottom-navbar"></div>
 
-    <!-- Sekmelerin Çalışmasını Sağlayan Basit JavaScript -->
     <script>
         function openTab(evt, tabName) {
             var i, tabcontent, tabbtns;
