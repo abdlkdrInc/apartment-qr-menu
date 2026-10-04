@@ -7,27 +7,97 @@
 <style>
     *, *::before, *::after { box-sizing: border-box; }
     body { font-family: 'Merriweather', serif; margin: 0; padding: 0; color: #2C2C2C; background-color: #FAF8F5; }
+    
     .top-navbar { width: 100%; height: 120px; background-color: #e7b86a; text-align: center; display: flex; align-items: center; justify-content: center; position: relative; }
     .top-navbar img { height: 90px; object-fit: contain; }
+    
     .lang-switcher { position: absolute; top: 15px; right: 15px; display: flex; gap: 12px; background: rgba(255, 255, 255, 0.4); padding: 5px 10px; border-radius: 20px; }
     .lang-switcher a { text-decoration: none; color: #800020; font-size: 14px; font-weight: 700; font-family: sans-serif; border-bottom: 2px solid transparent; transition: 0.2s; }
     .lang-switcher a.active { border-bottom: 2px solid #800020; }
-    .lang-switcher a:hover { opacity: 0.7; }
+    
     .bottom-navbar { position: fixed; bottom: 0; width: 100%; height: 6px; background-color: #800020; z-index: 10; }
-    .content-wrapper { padding: 20px; padding-bottom: 40px; }
+    .content-wrapper { padding: 10px 20px 40px 20px; }
     .content { column-count: 2; column-gap: 40px; }
+    
+    /* --- YENİ: Sekme (Tab) Menüsü --- */
+    .tab-container {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin: 15px 0 25px 0;
+        padding: 0 15px;
+    }
+    .tab-btn {
+        background: transparent;
+        border: 2px solid #800020;
+        color: #800020;
+        padding: 10px 20px;
+        font-size: 15px;
+        font-weight: 700;
+        font-family: 'Merriweather', serif;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        flex: 1;
+        max-width: 200px;
+    }
+    .tab-btn.active {
+        background: #800020;
+        color: #fff;
+        box-shadow: 0 4px 10px rgba(128,0,32,0.3);
+    }
+    .tab-content { display: none; }
+    .tab-content.active {
+        display: block;
+        animation: fadeIn 0.4s ease-in-out;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(5px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* --- Normal Menü Stilleri --- */
     .menu-section { break-inside: avoid; page-break-inside: avoid; margin-bottom: 25px; display: inline-block; width: 100%; }
     .category { color: #800020; font-size: 18px; font-weight: 900; text-transform: uppercase; border-bottom: 2px solid #e7b86a; margin: 0 0 15px 0; padding-bottom: 5px; letter-spacing: 0.5px; display: flex; justify-content: space-between; align-items: baseline; }
     .category-price { color: #000000; font-size: 15px; font-weight: 700; }
+    
     .menu-item { margin-bottom: 15px; }
     .item-header { display: flex; justify-content: space-between; margin-bottom: 4px; align-items: flex-end; }
     .item-name { font-size: 15px; font-weight: 700; color: #2C2C2C; }
     .item-price { font-size: 15px; font-weight: 700; color: #000000; white-space: nowrap; padding-left: 10px; }
     .item-desc { font-size: 13px; color: #555; line-height: 1.4; display: block; margin-top: 3px; }
+
+    /* --- YENİ: Fotoğraflı Kart Tasarımı --- */
+    .card-menu-item {
+        background-color: #fff;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        margin-bottom: 25px;
+        break-inside: avoid;
+        page-break-inside: avoid;
+        display: block;
+        border: 1px solid #f0eae1;
+    }
+    .card-menu-item img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        background-color: #e7b86a; /* Resim yüklenene kadar görünecek bekleme rengi */
+        display: block;
+        border-bottom: 3px solid #800020;
+    }
+    .card-content { padding: 15px; }
+    .card-content .item-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; }
+    .card-content .item-name { font-size: 16px; font-weight: 900; color: #800020; }
+    .card-content .item-price { font-size: 16px; font-weight: 900; color: #000; }
+    .card-content .item-desc { font-size: 13px; color: #666; line-height: 1.5; }
+
     @media (max-width: 768px) {
         .content { column-count: 1; }
         .lang-switcher { top: 10px; right: 10px; font-size: 12px; padding: 4px 8px; }
         .top-navbar img { margin-top: 15px; }
+        .tab-btn { font-size: 14px; padding: 8px 12px; }
     }
 </style>
 </head>
@@ -41,265 +111,354 @@
         </div>
     </div>
     
+    <!-- YENİ: Sekme Butonları -->
+    <div class="tab-container">
+        <button class="tab-btn active" onclick="openTab(event, 'tab-yiyecek')">Yiyecekler</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab-icecek')">İçecekler & Fırın</button>
+    </div>
+
     <div class="content-wrapper">
-        <div class="content">
-            
-            <div class="menu-section">
-                <div class="category">Sıcak Kahveler</div>
-                <div class="menu-item"><div class="item-header"><span class="item-name">Espresso</span><span class="item-price">180,00 ₺</span></div></div>
-                <div class="menu-item"><div class="item-header"><span class="item-name">Americano</span><span class="item-price">200,00 ₺</span></div></div>
-                <div class="menu-item"><div class="item-header"><span class="item-name">Cortado</span><span class="item-price">220,00 ₺</span></div></div>
-                <div class="menu-item"><div class="item-header"><span class="item-name">Flat White</span><span class="item-price">230,00 ₺</span></div></div>
-                <div class="menu-item"><div class="item-header"><span class="item-name">Latte</span><span class="item-price">240,00 ₺</span></div></div>
-                <div class="menu-item"><div class="item-header"><span class="item-name">Cappuccino</span><span class="item-price">240,00 ₺</span></div></div>
-                <div class="menu-item"><div class="item-header"><span class="item-name">Matcha Latte</span><span class="item-price">300,00 ₺</span></div></div>
-                <div class="menu-item"><div class="item-header"><span class="item-name">Türk Kahvesi</span><span class="item-price">180,00 ₺</span></div></div>
-                <div class="menu-item"><div class="item-header"><span class="item-name">Filtre Kahve</span><span class="item-price">210,00 ₺</span></div></div>
-                <div class="menu-item"><div class="item-header"><span class="item-name">V60 Demleme</span><span class="item-price">260,00 ₺</span></div></div>
-                <div class="menu-item"><div class="item-header"><span class="item-name">Macchiato</span><span class="item-price">200,00 ₺</span></div></div>
-                <div class="menu-item"><div class="item-header"><span class="item-name">Spanish Latte</span><span class="item-price">265,00 ₺</span></div></div>
-            </div>
+        
+        <!-- ================= YİYECEKLER (FOTOĞRAFLI BÖLÜM) ================= -->
+        <div id="tab-yiyecek" class="tab-content active">
+            <div class="content">
+                
+                <div class="menu-section">
+                    <div class="category">Organik Yumurtalar</div>
+                    
+                    <!-- Fotoğrafsız Ürün -->
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Konfi Çırpılmış</span><span class="item-price">385,00 ₺</span></div>
+                        <div class="item-desc">Yumurta, konfi domates ve biber, ezine peyniri, zeytin, susam, acı yağ, ekşi maya ekmek</div>
+                    </div>
 
-            <div class="menu-section">
-                <div class="category">Soğuk Kahveler</div>
-                <div class="menu-item"><div class="item-header"><span class="item-name">Ice Latte</span><span class="item-price">260,00 ₺</span></div></div>
-                <div class="menu-item"><div class="item-header"><span class="item-name">Ice Americano</span><span class="item-price">220,00 ₺</span></div></div>
-                <div class="menu-item"><div class="item-header"><span class="item-name">Ice Cortado</span><span class="item-price">240,00 ₺</span></div></div>
-                <div class="menu-item"><div class="item-header"><span class="item-name">Ice Matcha Latte</span><span class="item-price">320,00 ₺</span></div></div>
-                <div class="menu-item"><div class="item-header"><span class="item-name">Cold Drip</span><span class="item-price">270,00 ₺</span></div></div>
-                <div class="menu-item"><div class="item-header"><span class="item-name">Ice V60 Demleme</span><span class="item-price">275,00 ₺</span></div></div>
-                <div class="menu-item"><div class="item-header"><span class="item-name">Ice Spanish Latte</span><span class="item-price">280,00 ₺</span></div></div>
-            </div>
+                    <!-- FOTOĞRAFLI ÜRÜNLER -->
+                    <div class="card-menu-item">
+                        <!-- Görseli buraya ekleyeceksin -->
+                        <img src="fotograf-linki-buraya.jpg" alt="Simit Tabak">
+                        <div class="card-content">
+                            <div class="item-header"><span class="item-name">Simit Tabak</span><span class="item-price">385,00 ₺</span></div>
+                            <div class="item-desc">Hellim peyniri, yumurta, pembe domates, nektarin, glutensiz simit</div>
+                        </div>
+                    </div>
 
-            <div class="menu-section">
-                <div class="category">Çaylar</div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Earl Grey Siyah Çay</span><span class="item-price">90,00 ₺</span></div>
-                    <div class="item-desc">Siyah çay, doğal aroma</div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Therapy Oolong Çayı</span><span class="item-price">230,00 ₺</span></div>
-                    <div class="item-desc">Oolong, meyankökü, portakal, lavanta</div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Detox Bitki Çayı</span><span class="item-price">230,00 ₺</span></div>
-                    <div class="item-desc">Rooibos, yeşil çay, elma, tatlı nane</div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Red Berry Meyve Çayı</span><span class="item-price">230,00 ₺</span></div>
-                    <div class="item-desc">Ananas, elma, hibiskus, çilek, böğürtlen, frambuaz, doğal aroma, ayçiçeği</div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Limon Zencefil Bitki Çayı</span><span class="item-price">230,00 ₺</span></div>
-                    <div class="item-desc">Hibiskus, zencefil, elma, limon, gül yaprak, limonotu</div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Rooibos Bourbon Vanilya Bitki Çayı</span><span class="item-price">230,00 ₺</span></div>
-                    <div class="item-desc">Rooibos, doğal vanilya aroması</div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Cold Play Bitki Çayı</span><span class="item-price">230,00 ₺</span></div>
-                    <div class="item-desc">Limonotu, portakal, tarçın, limon, zencefil, meyankökü, karanfil, rezene, kırmızıbiber, tatlı nane</div>
-                </div>
-            </div>
+                    <div class="card-menu-item">
+                        <img src="fotograf-linki-buraya.jpg" alt="Patatesli Göz Yumurta">
+                        <div class="card-content">
+                            <div class="item-header"><span class="item-name">Patatesli Göz Yumurta</span><span class="item-price">385,00 ₺</span></div>
+                            <div class="item-desc">Tahinli ve süzme yoğurtlu dip sos, patates, kaşar peyniri, yumurta</div>
+                        </div>
+                    </div>
 
-            <div class="menu-section">
-                <div class="category">Diğer İçecekler</div>
-                <div class="menu-item"><div class="item-header"><span class="item-name">APT</span><span class="item-price">270,00 ₺</span></div></div>
-                <div class="menu-item"><div class="item-header"><span class="item-name">Sıcak Çikolata</span><span class="item-price">240,00 ₺</span></div></div>
-                <div class="menu-item"><div class="item-header"><span class="item-name">Salep</span><span class="item-price">240,00 ₺</span></div></div>
-                <div class="menu-item"><div class="item-header"><span class="item-name">Kombucha</span><span class="item-price">300,00 ₺</span></div></div>
-                <div class="menu-item"><div class="item-header"><span class="item-name">Portakal Suyu</span><span class="item-price">270,00 ₺</span></div></div>
-                <div class="menu-item"><div class="item-header"><span class="item-name">Soda</span><span class="item-price">90,00 ₺</span></div></div>
-                <div class="menu-item"><div class="item-header"><span class="item-name">Su</span><span class="item-price">75,00 ₺</span></div></div>
-            </div>
+                    <div class="card-menu-item">
+                        <img src="fotograf-linki-buraya.jpg" alt="Çılbır Kase">
+                        <div class="card-content">
+                            <div class="item-header"><span class="item-name">Çılbır Kase</span><span class="item-price">345,00 ₺</span></div>
+                            <div class="item-desc">Süzme yoğurt, kayısı yumurta, kuru domates pesto, tahin, glutensiz simit</div>
+                        </div>
+                    </div>
 
-            <div class="menu-section">
-                <div class="category">Organik Yumurtalar</div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Konfi Çırpılmış</span><span class="item-price">385,00 ₺</span></div>
-                    <div class="item-desc">Yumurta, konfi domates ve biber, ezine peyniri, zeytin, susam, acı yağ, ekşi maya ekmek</div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Simit Tabak</span><span class="item-price">385,00 ₺</span></div>
-                    <div class="item-desc">Hellim peyniri, yumurta, pembe domates, nektarin, glutensiz simit</div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Patatesli Göz Yumurta</span><span class="item-price">385,00 ₺</span></div>
-                    <div class="item-desc">Tahinli ve süzme yoğurtlu dip sos, patates, kaşar peyniri, yumurta</div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Çılbır Kase</span><span class="item-price">345,00 ₺</span></div>
-                    <div class="item-desc">Süzme yoğurt, kayısı yumurta, kuru domates pesto, tahin, glutensiz simit</div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Menemen Tava</span><span class="item-price">475,00 ₺</span></div>
-                    <div class="item-desc">Taze domates, yumurta, ezine peyniri, fesleğen, ekşi maya ekmek</div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Ezine Tost</span><span class="item-price">385,00 ₺</span></div>
-                    <div class="item-desc">Ezine peyniri, taze kekik, pembe domates, Alman turşusu, ekşi maya ekmek</div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Pesto Avokado Apartment Tost</span><span class="item-price">435,00 ₺</span></div>
-                    <div class="item-desc">Fesleğen pesto sos, avokado, cheddar peyniri, dil peyniri, kaşar peyniri, ekşi maya ekmek, Alman turşusu</div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Somon Tartine</span><span class="item-price">545,00 ₺</span></div>
-                    <div class="item-desc">Glutensiz ekmek, avokado püre, somon füme, kapari, frenk soğanı, konfi domates</div>
-                </div>
-            </div>
+                    <div class="card-menu-item">
+                        <img src="fotograf-linki-buraya.jpg" alt="Menemen Tava">
+                        <div class="card-content">
+                            <div class="item-header"><span class="item-name">Menemen Tava</span><span class="item-price">475,00 ₺</span></div>
+                            <div class="item-desc">Taze domates, yumurta, ezine peyniri, fesleğen, ekşi maya ekmek</div>
+                        </div>
+                    </div>
 
-            <div class="menu-section">
-                <div class="category"><span>Sandviçler</span> <span class="category-price">435,00 ₺</span></div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Apartment Kruvasan Pesto</span></div>
-                    <div class="item-desc">Sade kruvasan, fesleğen pesto, pembe domates, mozzarella peyniri</div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Hindi Jambon Sandviç</span></div>
-                    <div class="item-desc">Ekşi maya ekmek, remoulade turşu sos, roka, Alman turşusu, hindi jambon, taze kaşar dilim peynir</div>
-                </div>
-            </div>
+                    <div class="card-menu-item">
+                        <img src="fotograf-linki-buraya.jpg" alt="Ezine Tost">
+                        <div class="card-content">
+                            <div class="item-header"><span class="item-name">Ezine Tost</span><span class="item-price">385,00 ₺</span></div>
+                            <div class="item-desc">Ezine peyniri, taze kekik, pembe domates, Alman turşusu, ekşi maya ekmek</div>
+                        </div>
+                    </div>
 
-            <div class="menu-section">
-                <div class="category">Kaseler</div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Apartment Granola</span><span class="item-price">365,00 ₺</span></div>
-                    <div class="item-desc">Süzme yoğurt, granola, fıstık ezmesi, chia tohumu, keten tohumu, muz, beyaz üzüm</div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Bircher Muesli</span><span class="item-price">345,00 ₺</span></div>
-                    <div class="item-desc">Yulaf ezmesi, kabak çekirdeği, chia, keten tohumu, yeşil elma rendesi, tarçın, badem sütü, hurma püresi, muz, file badem</div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Poşe Avokado</span><span class="item-price">365,00 ₺</span></div>
-                    <div class="item-desc">Avokado, poşe yumurta, roka, parmesan rendesi</div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Fit Tabak</span><span class="item-price">385,00 ₺</span></div>
-                    <div class="item-desc">Yumurta, avokado, roka, kokteyl domates, ezine peyniri, ceviz, fırınlanmış tatlı patates</div>
-                </div>
-            </div>
-            
-            <div class="menu-section">
-                <div class="category"><span>Kurabiyeler</span> <span class="category-price">135,00 ₺</span></div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Chocolate Chip Cookie</span></div>
-                    <div class="item-desc">Tereyağı, esmer şeker, yumurta, un, sütlü damla çikolata, fındık</div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Amaretti Cevizli Kurabiye</span></div>
-                    <div class="item-desc">Toz ceviz, şeker, tarçın, yumurta beyazı, ceviz</div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Amaretti Bademli Kurabiye</span></div>
-                    <div class="item-desc">Toz badem, şeker, limon zest, yumurta beyazı, badem</div>
-                </div>
-            </div>
+                    <div class="card-menu-item">
+                        <img src="fotograf-linki-buraya.jpg" alt="Pesto Avokado Apartment Tost">
+                        <div class="card-content">
+                            <div class="item-header"><span class="item-name">Pesto Avokado Apartment Tost</span><span class="item-price">435,00 ₺</span></div>
+                            <div class="item-desc">Fesleğen pesto sos, avokado, cheddar peyniri, dil peyniri, kaşar peyniri, ekşi maya ekmek, Alman turşusu</div>
+                        </div>
+                    </div>
 
-            <div class="menu-section">
-                <div class="category"><span>Kruvasanlar</span> <span class="category-price">225,00 ₺</span></div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Sade Kruvasan</span></div>
+                    <div class="card-menu-item">
+                        <img src="fotograf-linki-buraya.jpg" alt="Somon Tartine">
+                        <div class="card-content">
+                            <div class="item-header"><span class="item-name">Somon Tartine</span><span class="item-price">545,00 ₺</span></div>
+                            <div class="item-desc">Glutensiz ekmek, avokado püre, somon füme, kapari, frenk soğanı, konfi domates</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Bademli Kruvasan</span></div>
-                    <div class="item-desc">Tereyağı, şeker, yumurta, toz badem, file badem</div>
-                </div>
-            </div>
 
-            <div class="menu-section">
-                <div class="category"><span>Kekler</span> <span class="category-price">275,00 ₺</span></div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Muzlu ve Çikolatalı Kek</span></div>
-                    <div class="item-desc">Muz, tereyağı, şeker, un, sütlü damla çikolata</div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Limonlu Yaban Mersinli Kek</span></div>
-                    <div class="item-desc">Yumurta, şeker, yoğurt, limon suyu, sıvı yağ, un, yaban mersini</div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Ananaslı Unsuz ve Şekersiz Kek</span></div>
-                    <div class="item-desc">Hurma, portakal suyu, yoğurt, yumurta, toz ceviz, ananas</div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Vegan Brownie</span></div>
-                    <div class="item-desc">Kaju unu, badem unu, hurma suyu, kakao, hindistan cevizi yağı</div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Portakal Brownie</span></div>
-                    <div class="item-desc">Şeker, yumurta, tereyağı, un, portakal suyu, beyaz çikolata</div>
-                </div>
-            </div>
+                <div class="menu-section">
+                    <div class="category"><span>Sandviçler</span> <span class="category-price">435,00 ₺</span></div>
+                    
+                    <div class="card-menu-item">
+                        <img src="fotograf-linki-buraya.jpg" alt="Apartment Kruvasan Pesto">
+                        <div class="card-content">
+                            <div class="item-header"><span class="item-name">Apartment Kruvasan Pesto</span></div>
+                            <div class="item-desc">Sade kruvasan, fesleğen pesto, pembe domates, mozzarella peyniri</div>
+                        </div>
+                    </div>
 
-            <div class="menu-section">
-                <div class="category"><span>Rawlar</span> <span class="category-price">245,00 ₺</span></div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Bademli Raw</span></div>
-                    <div class="item-desc">Glutensiz yulaf, çiğ badem, hurma, şekersiz bitter çikolata</div>
+                    <div class="card-menu-item">
+                        <img src="fotograf-linki-buraya.jpg" alt="Hindi Jambon Sandviç">
+                        <div class="card-content">
+                            <div class="item-header"><span class="item-name">Hindi Jambon Sandviç</span></div>
+                            <div class="item-desc">Ekşi maya ekmek, remoulade turşu sos, roka, Alman turşusu, hindi jambon, taze kaşar dilim peynir</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Kabak Çekirdek Raw</span></div>
-                    <div class="item-desc">Çiğ kabak çekirdeği, glutensiz yulaf, antep fıstığı tozu, kuru üzüm</div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Kaju Raw</span></div>
-                    <div class="item-desc">Çiğ kaju, glutensiz yulaf, hindistan cevizi, hurma, tarçın</div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Crunch Chocolate Snickers</span></div>
-                    <div class="item-desc">Hurma, mısır gevreği, fıstık ezmesi, bitter çikolata, hindistan cevizi yağı, yer fıstığı unu, glutensiz yulaf unu</div>
-                </div>
-            </div>
 
-            <div class="menu-section">
-                <div class="category"><span>Tartlar (Kişler)</span> <span class="category-price">295,00 ₺</span></div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Kuşkonmazlı Kiş</span></div>
-                    <div class="item-desc">Tam buğday unu, tereyağı, toz şeker, krema, süt, yumurta, mozzarella peyniri, parmesan, sarımsak, kuşkonmaz</div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Mantarlı Kiş</span></div>
-                    <div class="item-desc">Tam buğday unu, tereyağı, toz şeker, krema, süt, yumurta, soğan, mantar, parmesan</div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Ispanaklı Kiş</span></div>
-                    <div class="item-desc">Tam buğday unu, tereyağı, toz şeker, krema, süt, yumurta, mozzarella peyniri, sarımsak, ıspanak, parmesan</div>
-                </div>
-            </div>
+                <div class="menu-section">
+                    <div class="category">Kaseler</div>
+                    
+                    <div class="card-menu-item">
+                        <img src="fotograf-linki-buraya.jpg" alt="Apartment Granola">
+                        <div class="card-content">
+                            <div class="item-header"><span class="item-name">Apartment Granola</span><span class="item-price">365,00 ₺</span></div>
+                            <div class="item-desc">Süzme yoğurt, granola, fıstık ezmesi, chia tohumu, keten tohumu, muz, beyaz üzüm</div>
+                        </div>
+                    </div>
 
-            <div class="menu-section">
-                <div class="category"><span>Tuzlular</span> <span class="category-price">135,00 ₺</span></div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Sebzeli ve Lorlu Glutensiz Tuzlu Kek</span></div>
-                    <div class="item-desc">Mısır unu, glutensiz un, toz şeker, süt, tereyağı, yumurta, kabak, taze soğan, dereotu, kapya biber, lor peyniri</div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Siyez Poğaça</span></div>
-                    <div class="item-desc">Lor peyniri, tereyağı, yoğurt, yumurta beyazı, siyez unu</div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Tam Buğday Poğaça</span></div>
-                    <div class="item-desc">Lor peyniri, tereyağı, yoğurt, yumurta beyazı, tam buğday unu</div>
-                </div>
-            </div>
+                    <div class="card-menu-item">
+                        <img src="fotograf-linki-buraya.jpg" alt="Bircher Muesli">
+                        <div class="card-content">
+                            <div class="item-header"><span class="item-name">Bircher Muesli</span><span class="item-price">345,00 ₺</span></div>
+                            <div class="item-desc">Yulaf ezmesi, kabak çekirdeği, chia, keten tohumu, yeşil elma rendesi, tarçın, badem sütü, hurma püresi, muz, file badem</div>
+                        </div>
+                    </div>
 
-            <div class="menu-section">
-                <div class="category"><span>Cheesecake</span> <span class="category-price">325,00 ₺</span></div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Vişne ve Çilek Cheesecake</span></div>
-                    <div class="item-desc">Labne, şeker, un, yumurta, tereyağı, vişne ve çilek</div>
+                    <!-- Fotoğrafsız Ürün -->
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Poşe Avokado</span><span class="item-price">365,00 ₺</span></div>
+                        <div class="item-desc">Avokado, poşe yumurta, roka, parmesan rendesi</div>
+                    </div>
+
+                    <div class="card-menu-item">
+                        <img src="fotograf-linki-buraya.jpg" alt="Fit Tabak">
+                        <div class="card-content">
+                            <div class="item-header"><span class="item-name">Fit Tabak</span><span class="item-price">385,00 ₺</span></div>
+                            <div class="item-desc">Yumurta, avokado, roka, kokteyl domates, ezine peyniri, ceviz, fırınlanmış tatlı patates</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Limonlu Cheesecake</span></div>
-                    <div class="item-desc">Labne, şeker, un, yumurta, tereyağı, limon curd</div>
-                </div>
+
             </div>
-            
         </div>
+        
+        <!-- ================= İÇECEKLER VE FIRIN BÖLÜMÜ (STANDART LİSTE) ================= -->
+        <div id="tab-icecek" class="tab-content">
+            <div class="content">
+                
+                <div class="menu-section">
+                    <div class="category">Sıcak Kahveler</div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Espresso</span><span class="item-price">180,00 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Americano</span><span class="item-price">200,00 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Cortado</span><span class="item-price">220,00 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Flat White</span><span class="item-price">230,00 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Latte</span><span class="item-price">240,00 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Cappuccino</span><span class="item-price">240,00 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Matcha Latte</span><span class="item-price">300,00 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Türk Kahvesi</span><span class="item-price">180,00 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Filtre Kahve</span><span class="item-price">210,00 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">V60 Demleme</span><span class="item-price">260,00 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Macchiato</span><span class="item-price">200,00 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Spanish Latte</span><span class="item-price">265,00 ₺</span></div></div>
+                </div>
+
+                <div class="menu-section">
+                    <div class="category">Soğuk Kahveler</div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Ice Latte</span><span class="item-price">260,00 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Ice Americano</span><span class="item-price">220,00 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Ice Cortado</span><span class="item-price">240,00 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Ice Matcha Latte</span><span class="item-price">320,00 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Cold Drip</span><span class="item-price">270,00 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Ice V60 Demleme</span><span class="item-price">275,00 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Ice Spanish Latte</span><span class="item-price">280,00 ₺</span></div></div>
+                </div>
+
+                <div class="menu-section">
+                    <div class="category">Çaylar</div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Earl Grey Siyah Çay</span><span class="item-price">90,00 ₺</span></div>
+                        <div class="item-desc">Siyah çay, doğal aroma</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Therapy Oolong Çayı</span><span class="item-price">230,00 ₺</span></div>
+                        <div class="item-desc">Oolong, meyankökü, portakal, lavanta</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Detox Bitki Çayı</span><span class="item-price">230,00 ₺</span></div>
+                        <div class="item-desc">Rooibos, yeşil çay, elma, tatlı nane</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Red Berry Meyve Çayı</span><span class="item-price">230,00 ₺</span></div>
+                        <div class="item-desc">Ananas, elma, hibiskus, çilek, böğürtlen, frambuaz, doğal aroma, ayçiçeği</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Limon Zencefil Bitki Çayı</span><span class="item-price">230,00 ₺</span></div>
+                        <div class="item-desc">Hibiskus, zencefil, elma, limon, gül yaprak, limonotu</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Rooibos Bourbon Vanilya Bitki Çayı</span><span class="item-price">230,00 ₺</span></div>
+                        <div class="item-desc">Rooibos, doğal vanilya aroması</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Cold Play Bitki Çayı</span><span class="item-price">230,00 ₺</span></div>
+                        <div class="item-desc">Limonotu, portakal, tarçın, limon, zencefil, meyankökü, karanfil, rezene, kırmızıbiber, tatlı nane</div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <div class="category">Diğer İçecekler</div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">APT</span><span class="item-price">270,00 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Sıcak Çikolata</span><span class="item-price">240,00 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Salep</span><span class="item-price">240,00 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Kombucha</span><span class="item-price">300,00 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Portakal Suyu</span><span class="item-price">270,00 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Soda</span><span class="item-price">90,00 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Su</span><span class="item-price">75,00 ₺</span></div></div>
+                </div>
+
+                <div class="menu-section">
+                    <div class="category"><span>Kruvasanlar</span> <span class="category-price">225,00 ₺</span></div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Sade Kruvasan</span></div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Bademli Kruvasan</span></div>
+                        <div class="item-desc">Tereyağı, şeker, yumurta, toz badem, file badem</div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <div class="category"><span>Kurabiyeler</span> <span class="category-price">135,00 ₺</span></div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Chocolate Chip Cookie</span></div>
+                        <div class="item-desc">Tereyağı, esmer şeker, yumurta, un, sütlü damla çikolata, fındık</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Amaretti Cevizli Kurabiye</span></div>
+                        <div class="item-desc">Toz ceviz, şeker, tarçın, yumurta beyazı, ceviz</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Amaretti Bademli Kurabiye</span></div>
+                        <div class="item-desc">Toz badem, şeker, limon zest, yumurta beyazı, badem</div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <div class="category"><span>Kekler</span> <span class="category-price">275,00 ₺</span></div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Muzlu ve Çikolatalı Kek</span></div>
+                        <div class="item-desc">Muz, tereyağı, şeker, un, sütlü damla çikolata</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Limonlu Yaban Mersinli Kek</span></div>
+                        <div class="item-desc">Yumurta, şeker, yoğurt, limon suyu, sıvı yağ, un, yaban mersini</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Ananaslı Unsuz ve Şekersiz Kek</span></div>
+                        <div class="item-desc">Hurma, portakal suyu, yoğurt, yumurta, toz ceviz, ananas</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Vegan Brownie</span></div>
+                        <div class="item-desc">Kaju unu, badem unu, hurma suyu, kakao, hindistan cevizi yağı</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Portakal Brownie</span></div>
+                        <div class="item-desc">Şeker, yumurta, tereyağı, un, portakal suyu, beyaz çikolata</div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <div class="category"><span>Rawlar</span> <span class="category-price">245,00 ₺</span></div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Bademli Raw</span></div>
+                        <div class="item-desc">Glutensiz yulaf, çiğ badem, hurma, şekersiz bitter çikolata</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Kabak Çekirdek Raw</span></div>
+                        <div class="item-desc">Çiğ kabak çekirdeği, glutensiz yulaf, antep fıstığı tozu, kuru üzüm</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Kaju Raw</span></div>
+                        <div class="item-desc">Çiğ kaju, glutensiz yulaf, hindistan cevizi, hurma, tarçın</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Crunch Chocolate Snickers</span></div>
+                        <div class="item-desc">Hurma, mısır gevreği, fıstık ezmesi, bitter çikolata, hindistan cevizi yağı, yer fıstığı unu, glutensiz yulaf unu</div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <div class="category"><span>Tartlar (Kişler)</span> <span class="category-price">295,00 ₺</span></div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Kuşkonmazlı Kiş</span></div>
+                        <div class="item-desc">Tam buğday unu, tereyağı, toz şeker, krema, süt, yumurta, mozzarella peyniri, parmesan, sarımsak, kuşkonmaz</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Mantarlı Kiş</span></div>
+                        <div class="item-desc">Tam buğday unu, tereyağı, toz şeker, krema, süt, yumurta, soğan, mantar, parmesan</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Ispanaklı Kiş</span></div>
+                        <div class="item-desc">Tam buğday unu, tereyağı, toz şeker, krema, süt, yumurta, mozzarella peyniri, sarımsak, ıspanak, parmesan</div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <div class="category"><span>Tuzlular</span> <span class="category-price">135,00 ₺</span></div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Sebzeli ve Lorlu Glutensiz Tuzlu Kek</span></div>
+                        <div class="item-desc">Mısır unu, glutensiz un, toz şeker, süt, tereyağı, yumurta, kabak, taze soğan, dereotu, kapya biber, lor peyniri</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Siyez Poğaça</span></div>
+                        <div class="item-desc">Lor peyniri, tereyağı, yoğurt, yumurta beyazı, siyez unu</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Tam Buğday Poğaça</span></div>
+                        <div class="item-desc">Lor peyniri, tereyağı, yoğurt, yumurta beyazı, tam buğday unu</div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <div class="category"><span>Cheesecake</span> <span class="category-price">325,00 ₺</span></div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Vişne ve Çilek Cheesecake</span></div>
+                        <div class="item-desc">Labne, şeker, un, yumurta, tereyağı, vişne ve çilek</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Limonlu Cheesecake</span></div>
+                        <div class="item-desc">Labne, şeker, un, yumurta, tereyağı, limon curd</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        
     </div>
     
     <div class="bottom-navbar"></div>
+
+    <!-- Sekmelerin Çalışmasını Sağlayan Basit JavaScript -->
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tabbtns;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            tabbtns = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tabbtns.length; i++) {
+                tabbtns[i].classList.remove("active");
+            }
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
 </body>
 </html>
