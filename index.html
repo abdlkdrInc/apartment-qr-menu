@@ -83,6 +83,11 @@
         background-color: #e7b86a;
         display: block;
         border-bottom: 3px solid #800020;
+        cursor: pointer; /* Tıklanabilir imleci eklendi */
+        transition: opacity 0.2s ease;
+    }
+    .card-menu-item img:hover {
+        opacity: 0.9;
     }
     .card-content { padding: 15px; }
     .card-content .item-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; }
@@ -90,11 +95,52 @@
     .card-content .item-price { font-size: 16px; font-weight: 900; color: #000; }
     .card-content .item-desc { font-size: 13px; color: #666; line-height: 1.5; }
 
+    /* --- Tam Ekran Resim (Modal) Stilleri --- */
+    .modal {
+        display: none; 
+        position: fixed; 
+        z-index: 9999; 
+        padding-top: 80px; 
+        left: 0; top: 0; 
+        width: 100%; height: 100%; 
+        background-color: rgba(0,0,0,0.85); 
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    .modal.show {
+        display: block;
+        opacity: 1;
+    }
+    .modal-content {
+        margin: auto;
+        display: block;
+        max-width: 90%;
+        max-height: 80vh;
+        border-radius: 8px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.8);
+        object-fit: contain;
+    }
+    .close-modal {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        color: #f1f1f1;
+        font-size: 45px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+    .close-modal:hover, .close-modal:focus {
+        color: #bbb;
+        text-decoration: none;
+    }
+
     @media (max-width: 768px) {
         .content { column-count: 1; }
         .lang-switcher { top: 10px; right: 10px; font-size: 12px; padding: 4px 8px; }
         .top-navbar img { margin-top: 15px; }
         .tab-btn { font-size: 14px; padding: 8px 12px; }
+        .close-modal { top: 15px; right: 20px; font-size: 35px; }
     }
 </style>
 </head>
@@ -319,7 +365,7 @@
                     </div>
 
                     <div class="card-menu-item">
-                        <img src="simit-tabak.jpg" alt="Simit Tabak">
+                        <img src="simit-tabak.jpg" alt="Simit Tabak" onclick="openModal(this.src)">
                         <div class="card-content">
                             <div class="item-header"><span class="item-name">Simit Tabak</span><span class="item-price">385,00 ₺</span></div>
                             <div class="item-desc">Hellim peyniri, yumurta, pembe domates, nektarin, glutensiz simit</div>
@@ -327,7 +373,7 @@
                     </div>
 
                     <div class="card-menu-item">
-                        <img src="patatesli-goz-yumurta.jpg" alt="Patatesli Göz Yumurta">
+                        <img src="patatesli-goz-yumurta.jpg" alt="Patatesli Göz Yumurta" onclick="openModal(this.src)">
                         <div class="card-content">
                             <div class="item-header"><span class="item-name">Patatesli Göz Yumurta</span><span class="item-price">385,00 ₺</span></div>
                             <div class="item-desc">Tahinli ve süzme yoğurtlu dip sos, patates, kaşar peyniri, yumurta</div>
@@ -335,7 +381,7 @@
                     </div>
 
                     <div class="card-menu-item">
-                        <img src="cilbir-kase.jpg" alt="Çılbır Kase">
+                        <img src="cilbir-kase.jpg" alt="Çılbır Kase" onclick="openModal(this.src)">
                         <div class="card-content">
                             <div class="item-header"><span class="item-name">Çılbır Kase</span><span class="item-price">345,00 ₺</span></div>
                             <div class="item-desc">Süzme yoğurt, kayısı yumurta, kuru domates pesto, tahin, glutensiz simit</div>
@@ -343,7 +389,7 @@
                     </div>
 
                     <div class="card-menu-item">
-                        <img src="menemen-tava.jpg" alt="Menemen Tava">
+                        <img src="menemen-tava.jpg" alt="Menemen Tava" onclick="openModal(this.src)">
                         <div class="card-content">
                             <div class="item-header"><span class="item-name">Menemen Tava</span><span class="item-price">475,00 ₺</span></div>
                             <div class="item-desc">Taze domates, yumurta, ezine peyniri, fesleğen, ekşi maya ekmek</div>
@@ -351,7 +397,7 @@
                     </div>
 
                     <div class="card-menu-item">
-                        <img src="ezine-tost.jpg" alt="Ezine Tost">
+                        <img src="ezine-tost.jpg" alt="Ezine Tost" onclick="openModal(this.src)">
                         <div class="card-content">
                             <div class="item-header"><span class="item-name">Ezine Tost</span><span class="item-price">385,00 ₺</span></div>
                             <div class="item-desc">Ezine peyniri, taze kekik, pembe domates, Alman turşusu, ekşi maya ekmek</div>
@@ -359,7 +405,7 @@
                     </div>
 
                     <div class="card-menu-item">
-                        <img src="pesto-avokado-tost.jpg" alt="Pesto Avokado Apartment Tost">
+                        <img src="pesto-avokado-tost.jpg" alt="Pesto Avokado Apartment Tost" onclick="openModal(this.src)">
                         <div class="card-content">
                             <div class="item-header"><span class="item-name">Pesto Avokado Apartment Tost</span><span class="item-price">435,00 ₺</span></div>
                             <div class="item-desc">Fesleğen pesto sos, avokado, cheddar peyniri, dil peyniri, kaşar peyniri, ekşi maya ekmek, Alman turşusu</div>
@@ -367,7 +413,7 @@
                     </div>
 
                     <div class="card-menu-item">
-                        <img src="somon-tartine.jpg" alt="Somon Tartine">
+                        <img src="somon-tartine.jpg" alt="Somon Tartine" onclick="openModal(this.src)">
                         <div class="card-content">
                             <div class="item-header"><span class="item-name">Somon Tartine</span><span class="item-price">545,00 ₺</span></div>
                             <div class="item-desc">Glutensiz ekmek, avokado püre, somon füme, kapari, frenk soğanı, konfi domates</div>
@@ -379,7 +425,7 @@
                     <div class="category"><span>Sandviçler</span> <span class="category-price">435,00 ₺</span></div>
                     
                     <div class="card-menu-item">
-                        <img src="apartment-kruvasan-pesto.jpg" alt="Apartment Kruvasan Pesto">
+                        <img src="apartment-kruvasan-pesto.jpg" alt="Apartment Kruvasan Pesto" onclick="openModal(this.src)">
                         <div class="card-content">
                             <div class="item-header"><span class="item-name">Apartment Kruvasan Pesto</span></div>
                             <div class="item-desc">Sade kruvasan, fesleğen pesto, pembe domates, mozzarella peyniri</div>
@@ -387,7 +433,7 @@
                     </div>
 
                     <div class="card-menu-item">
-                        <img src="hindi-jambon-sandvic.jpg" alt="Hindi Jambon Sandviç">
+                        <img src="hindi-jambon-sandvic.jpg" alt="Hindi Jambon Sandviç" onclick="openModal(this.src)">
                         <div class="card-content">
                             <div class="item-header"><span class="item-name">Hindi Jambon Sandviç</span></div>
                             <div class="item-desc">Ekşi maya ekmek, remoulade turşu sos, roka, Alman turşusu, hindi jambon, taze kaşar dilim peynir</div>
@@ -399,7 +445,7 @@
                     <div class="category">Kaseler</div>
                     
                     <div class="card-menu-item">
-                        <img src="apartment-granola.jpg" alt="Apartment Granola">
+                        <img src="apartment-granola.jpg" alt="Apartment Granola" onclick="openModal(this.src)">
                         <div class="card-content">
                             <div class="item-header"><span class="item-name">Apartment Granola</span><span class="item-price">365,00 ₺</span></div>
                             <div class="item-desc">Süzme yoğurt, granola, fıstık ezmesi, chia tohumu, keten tohumu, muz, beyaz üzüm</div>
@@ -407,7 +453,7 @@
                     </div>
 
                     <div class="card-menu-item">
-                        <img src="bircher-muesli.jpg" alt="Bircher Muesli">
+                        <img src="bircher-muesli.jpg" alt="Bircher Muesli" onclick="openModal(this.src)">
                         <div class="card-content">
                             <div class="item-header"><span class="item-name">Bircher Muesli</span><span class="item-price">345,00 ₺</span></div>
                             <div class="item-desc">Yulaf ezmesi, kabak çekirdeği, chia, keten tohumu, yeşil elma rendesi, tarçın, badem sütü, hurma püresi, muz, file badem</div>
@@ -420,7 +466,7 @@
                     </div>
 
                     <div class="card-menu-item">
-                        <img src="fit-tabak.jpg" alt="Fit Tabak">
+                        <img src="fit-tabak.jpg" alt="Fit Tabak" onclick="openModal(this.src)">
                         <div class="card-content">
                             <div class="item-header"><span class="item-name">Fit Tabak</span><span class="item-price">385,00 ₺</span></div>
                             <div class="item-desc">Yumurta, avokado, roka, kokteyl domates, ezine peyniri, ceviz, fırınlanmış tatlı patates</div>
@@ -435,7 +481,15 @@
     
     <div class="bottom-navbar"></div>
 
+    <!-- YENİ: Modal (Resim Büyütme) Alanı -->
+    <div id="imageModal" class="modal" onclick="closeModal()">
+        <span class="close-modal">&times;</span>
+        <img class="modal-content" id="modalImg">
+    </div>
+
+    <!-- Sekmeler ve Modal İçin JavaScript -->
     <script>
+        // Sekme Değiştirme Fonksiyonu
         function openTab(evt, tabName) {
             var i, tabcontent, tabbtns;
             tabcontent = document.getElementsByClassName("tab-content");
@@ -448,6 +502,21 @@
             }
             document.getElementById(tabName).classList.add("active");
             evt.currentTarget.classList.add("active");
+        }
+
+        // Modal Fonksiyonları
+        var modal = document.getElementById("imageModal");
+        var modalImg = document.getElementById("modalImg");
+
+        function openModal(imgSrc) {
+            modal.style.display = "block";
+            modalImg.src = imgSrc;
+            setTimeout(() => { modal.classList.add("show"); }, 10); // Animasyon için küçük bir gecikme
+        }
+
+        function closeModal() {
+            modal.classList.remove("show");
+            setTimeout(() => { modal.style.display = "none"; }, 300); // Animasyon süresi kadar bekle
         }
     </script>
 </body>
