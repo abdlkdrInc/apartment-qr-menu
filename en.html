@@ -7,27 +7,141 @@
 <style>
     *, *::before, *::after { box-sizing: border-box; }
     body { font-family: 'Merriweather', serif; margin: 0; padding: 0; color: #2C2C2C; background-color: #FAF8F5; }
+    
     .top-navbar { width: 100%; height: 120px; background-color: #e7b86a; text-align: center; display: flex; align-items: center; justify-content: center; position: relative; }
     .top-navbar img { height: 90px; object-fit: contain; }
+    
     .lang-switcher { position: absolute; top: 15px; right: 15px; display: flex; gap: 12px; background: rgba(255, 255, 255, 0.4); padding: 5px 10px; border-radius: 20px; }
     .lang-switcher a { text-decoration: none; color: #800020; font-size: 14px; font-weight: 700; font-family: sans-serif; border-bottom: 2px solid transparent; transition: 0.2s; }
     .lang-switcher a.active { border-bottom: 2px solid #800020; }
     .lang-switcher a:hover { opacity: 0.7; }
+    
     .bottom-navbar { position: fixed; bottom: 0; width: 100%; height: 6px; background-color: #800020; z-index: 10; }
-    .content-wrapper { padding: 20px; padding-bottom: 40px; }
+    .content-wrapper { padding: 10px 20px 40px 20px; }
     .content { column-count: 2; column-gap: 40px; }
+    
+    .tab-container {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin: 15px 0 25px 0;
+        padding: 0 15px;
+    }
+    .tab-btn {
+        background: transparent;
+        border: 2px solid #800020;
+        color: #800020;
+        padding: 10px 20px;
+        font-size: 15px;
+        font-weight: 700;
+        font-family: 'Merriweather', serif;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        flex: 1;
+        max-width: 200px;
+    }
+    .tab-btn.active {
+        background: #800020;
+        color: #fff;
+        box-shadow: 0 4px 10px rgba(128,0,32,0.3);
+    }
+    .tab-content { display: none; }
+    .tab-content.active {
+        display: block;
+        animation: fadeIn 0.4s ease-in-out;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(5px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
     .menu-section { break-inside: avoid; page-break-inside: avoid; margin-bottom: 25px; display: inline-block; width: 100%; }
     .category { color: #800020; font-size: 18px; font-weight: 900; text-transform: uppercase; border-bottom: 2px solid #e7b86a; margin: 0 0 15px 0; padding-bottom: 5px; letter-spacing: 0.5px; display: flex; justify-content: space-between; align-items: baseline; }
     .category-price { color: #000000; font-size: 15px; font-weight: 700; }
+    
     .menu-item { margin-bottom: 15px; }
     .item-header { display: flex; justify-content: space-between; margin-bottom: 4px; align-items: flex-end; }
     .item-name { font-size: 15px; font-weight: 700; color: #2C2C2C; }
     .item-price { font-size: 15px; font-weight: 700; color: #000000; white-space: nowrap; padding-left: 10px; }
     .item-desc { font-size: 13px; color: #555; line-height: 1.4; display: block; margin-top: 3px; }
+
+    .card-menu-item {
+        background-color: #fff;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        margin-bottom: 25px;
+        break-inside: avoid;
+        page-break-inside: avoid;
+        display: block;
+        border: 1px solid #f0eae1;
+    }
+    .card-menu-item img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        background-color: #e7b86a;
+        display: block;
+        border-bottom: 3px solid #800020;
+        cursor: pointer;
+        transition: opacity 0.2s ease;
+    }
+    .card-menu-item img:hover {
+        opacity: 0.9;
+    }
+    .card-content { padding: 15px; }
+    .card-content .item-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; }
+    .card-content .item-name { font-size: 16px; font-weight: 900; color: #800020; }
+    .card-content .item-price { font-size: 16px; font-weight: 900; color: #000; }
+    .card-content .item-desc { font-size: 13px; color: #666; line-height: 1.5; }
+
+    /* Modal Styles */
+    .modal {
+        display: none; 
+        position: fixed; 
+        z-index: 9999; 
+        padding-top: 80px; 
+        left: 0; top: 0; 
+        width: 100%; height: 100%; 
+        background-color: rgba(0,0,0,0.85); 
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    .modal.show {
+        display: block;
+        opacity: 1;
+    }
+    .modal-content {
+        margin: auto;
+        display: block;
+        max-width: 90%;
+        max-height: 80vh;
+        border-radius: 8px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.8);
+        object-fit: contain;
+    }
+    .close-modal {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        color: #f1f1f1;
+        font-size: 45px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+    .close-modal:hover, .close-modal:focus {
+        color: #bbb;
+        text-decoration: none;
+    }
+
     @media (max-width: 768px) {
         .content { column-count: 1; }
         .lang-switcher { top: 10px; right: 10px; font-size: 12px; padding: 4px 8px; }
         .top-navbar img { margin-top: 15px; }
+        .tab-btn { font-size: 14px; padding: 8px 12px; }
+        .close-modal { top: 15px; right: 20px; font-size: 35px; }
     }
 </style>
 </head>
@@ -41,265 +155,366 @@
         </div>
     </div>
     
+    <div class="tab-container">
+        <button class="tab-btn active" onclick="openTab(event, 'tab-icecek')">Beverages & Bakery</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab-yiyecek')">Food</button>
+    </div>
+
     <div class="content-wrapper">
-        <div class="content">
-            
-            <div class="menu-section">
-                <div class="category">Hot Coffees</div>
-                <div class="menu-item"><div class="item-header"><span class="item-name">Espresso</span><span class="item-price">180,00 ₺</span></div></div>
-                <div class="menu-item"><div class="item-header"><span class="item-name">Americano</span><span class="item-price">200,00 ₺</span></div></div>
-                <div class="menu-item"><div class="item-header"><span class="item-name">Cortado</span><span class="item-price">220,00 ₺</span></div></div>
-                <div class="menu-item"><div class="item-header"><span class="item-name">Flat White</span><span class="item-price">230,00 ₺</span></div></div>
-                <div class="menu-item"><div class="item-header"><span class="item-name">Latte</span><span class="item-price">240,00 ₺</span></div></div>
-                <div class="menu-item"><div class="item-header"><span class="item-name">Cappuccino</span><span class="item-price">240,00 ₺</span></div></div>
-                <div class="menu-item"><div class="item-header"><span class="item-name">Matcha Latte</span><span class="item-price">300,00 ₺</span></div></div>
-                <div class="menu-item"><div class="item-header"><span class="item-name">Turkish Coffee</span><span class="item-price">180,00 ₺</span></div></div>
-                <div class="menu-item"><div class="item-header"><span class="item-name">Filter Coffee</span><span class="item-price">210,00 ₺</span></div></div>
-                <div class="menu-item"><div class="item-header"><span class="item-name">V60 Pour Over</span><span class="item-price">260,00 ₺</span></div></div>
-                <div class="menu-item"><div class="item-header"><span class="item-name">Macchiato</span><span class="item-price">200,00 ₺</span></div></div>
-                <div class="menu-item"><div class="item-header"><span class="item-name">Spanish Latte</span><span class="item-price">265,00 ₺</span></div></div>
-            </div>
+        
+        <!-- ================= BEVERAGES & BAKERY ================= -->
+        <div id="tab-icecek" class="tab-content active">
+            <div class="content">
+                
+                <div class="menu-section">
+                    <div class="category">Hot Coffees</div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Espresso</span><span class="item-price">180,00 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Americano</span><span class="item-price">200,00 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Cortado</span><span class="item-price">220,00 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Flat White</span><span class="item-price">230,00 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Latte</span><span class="item-price">240,00 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Cappuccino</span><span class="item-price">240,00 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Matcha Latte</span><span class="item-price">300,00 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Turkish Coffee</span><span class="item-price">180,00 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Filter Coffee</span><span class="item-price">210,00 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">V60 Pour Over</span><span class="item-price">260,00 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Macchiato</span><span class="item-price">200,00 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Spanish Latte</span><span class="item-price">265,00 ₺</span></div></div>
+                </div>
 
-            <div class="menu-section">
-                <div class="category">Cold Coffees</div>
-                <div class="menu-item"><div class="item-header"><span class="item-name">Ice Latte</span><span class="item-price">260,00 ₺</span></div></div>
-                <div class="menu-item"><div class="item-header"><span class="item-name">Ice Americano</span><span class="item-price">220,00 ₺</span></div></div>
-                <div class="menu-item"><div class="item-header"><span class="item-name">Ice Cortado</span><span class="item-price">240,00 ₺</span></div></div>
-                <div class="menu-item"><div class="item-header"><span class="item-name">Ice Matcha Latte</span><span class="item-price">320,00 ₺</span></div></div>
-                <div class="menu-item"><div class="item-header"><span class="item-name">Cold Drip</span><span class="item-price">270,00 ₺</span></div></div>
-                <div class="menu-item"><div class="item-header"><span class="item-name">Ice V60 Pour Over</span><span class="item-price">275,00 ₺</span></div></div>
-                <div class="menu-item"><div class="item-header"><span class="item-name">Ice Spanish Latte</span><span class="item-price">280,00 ₺</span></div></div>
-            </div>
+                <div class="menu-section">
+                    <div class="category">Cold Coffees</div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Ice Latte</span><span class="item-price">260,00 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Ice Americano</span><span class="item-price">220,00 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Ice Cortado</span><span class="item-price">240,00 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Ice Matcha Latte</span><span class="item-price">320,00 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Cold Drip</span><span class="item-price">270,00 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Ice V60 Pour Over</span><span class="item-price">275,00 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Ice Spanish Latte</span><span class="item-price">280,00 ₺</span></div></div>
+                </div>
 
-            <div class="menu-section">
-                <div class="category">Teas</div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Earl Grey Black Tea</span><span class="item-price">90,00 ₺</span></div>
-                    <div class="item-desc">Black tea, natural flavor</div>
+                <div class="menu-section">
+                    <div class="category">Teas</div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Earl Grey Black Tea</span><span class="item-price">90,00 ₺</span></div>
+                        <div class="item-desc">Black tea, natural flavor</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Therapy Oolong Tea</span><span class="item-price">230,00 ₺</span></div>
+                        <div class="item-desc">Oolong, licorice, orange, lavender</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Detox Herbal Tea</span><span class="item-price">230,00 ₺</span></div>
+                        <div class="item-desc">Rooibos, green tea, apple, sweet mint</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Red Berry Fruit Tea</span><span class="item-price">230,00 ₺</span></div>
+                        <div class="item-desc">Pineapple, apple, hibiscus, strawberry, blackberry, raspberry, natural flavor, sunflower</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Lemon Ginger Herbal Tea</span><span class="item-price">230,00 ₺</span></div>
+                        <div class="item-desc">Hibiscus, ginger, apple, lemon, rose petals, lemongrass</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Rooibos Bourbon Vanilla Herbal Tea</span><span class="item-price">230,00 ₺</span></div>
+                        <div class="item-desc">Rooibos, natural vanilla flavor</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Cold Play Herbal Tea</span><span class="item-price">230,00 ₺</span></div>
+                        <div class="item-desc">Lemongrass, orange, cinnamon, lemon, ginger, licorice, clove, fennel, red pepper, sweet mint</div>
+                    </div>
                 </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Therapy Oolong Tea</span><span class="item-price">230,00 ₺</span></div>
-                    <div class="item-desc">Oolong, licorice, orange, lavender</div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Detox Herbal Tea</span><span class="item-price">230,00 ₺</span></div>
-                    <div class="item-desc">Rooibos, green tea, apple, sweet mint</div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Red Berry Fruit Tea</span><span class="item-price">230,00 ₺</span></div>
-                    <div class="item-desc">Pineapple, apple, hibiscus, strawberry, blackberry, raspberry, natural flavor, sunflower</div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Lemon Ginger Herbal Tea</span><span class="item-price">230,00 ₺</span></div>
-                    <div class="item-desc">Hibiscus, ginger, apple, lemon, rose petals, lemongrass</div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Rooibos Bourbon Vanilla Herbal Tea</span><span class="item-price">230,00 ₺</span></div>
-                    <div class="item-desc">Rooibos, natural vanilla flavor</div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Cold Play Herbal Tea</span><span class="item-price">230,00 ₺</span></div>
-                    <div class="item-desc">Lemongrass, orange, cinnamon, lemon, ginger, licorice, clove, fennel, red pepper, sweet mint</div>
-                </div>
-            </div>
 
-            <div class="menu-section">
-                <div class="category">Other Beverages</div>
-                <div class="menu-item"><div class="item-header"><span class="item-name">APT</span><span class="item-price">270,00 ₺</span></div></div>
-                <div class="menu-item"><div class="item-header"><span class="item-name">Hot Chocolate</span><span class="item-price">240,00 ₺</span></div></div>
-                <div class="menu-item"><div class="item-header"><span class="item-name">Salep</span><span class="item-price">240,00 ₺</span></div></div>
-                <div class="menu-item"><div class="item-header"><span class="item-name">Kombucha</span><span class="item-price">300,00 ₺</span></div></div>
-                <div class="menu-item"><div class="item-header"><span class="item-name">Orange Juice</span><span class="item-price">270,00 ₺</span></div></div>
-                <div class="menu-item"><div class="item-header"><span class="item-name">Mineral Water</span><span class="item-price">90,00 ₺</span></div></div>
-                <div class="menu-item"><div class="item-header"><span class="item-name">Water</span><span class="item-price">75,00 ₺</span></div></div>
-            </div>
+                <div class="menu-section">
+                    <div class="category">Other Beverages</div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">APT</span><span class="item-price">270,00 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Hot Chocolate</span><span class="item-price">240,00 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Salep</span><span class="item-price">240,00 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Kombucha</span><span class="item-price">300,00 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Orange Juice</span><span class="item-price">270,00 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Mineral Water</span><span class="item-price">90,00 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Water</span><span class="item-price">75,00 ₺</span></div></div>
+                </div>
 
-            <div class="menu-section">
-                <div class="category">Organic Eggs</div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Confit Scrambled</span><span class="item-price">385,00 ₺</span></div>
-                    <div class="item-desc">Egg, confit tomato & pepper, ezine cheese, olive, sesame, chili oil, sourdough bread</div>
+                <div class="menu-section">
+                    <div class="category"><span>Croissants</span> <span class="category-price">225,00 ₺</span></div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Plain Croissant</span></div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Almond Croissant</span></div>
+                        <div class="item-desc">Butter, sugar, egg, almond powder, sliced almonds</div>
+                    </div>
                 </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Simit Platter</span><span class="item-price">385,00 ₺</span></div>
-                    <div class="item-desc">Halloumi cheese, egg, pink tomato, nectarine, gluten-free simit</div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Sunny-Side Up w/ Potatoes</span><span class="item-price">385,00 ₺</span></div>
-                    <div class="item-desc">Strained yogurt and tahini dip sauce, potatoes, kashkaval cheese, egg</div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Çılbır Bowl</span><span class="item-price">345,00 ₺</span></div>
-                    <div class="item-desc">Strained yogurt, soft-boiled egg, sun-dried tomato pesto, tahini, gluten-free simit</div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Menemen Skillet</span><span class="item-price">475,00 ₺</span></div>
-                    <div class="item-desc">Fresh tomato, egg, ezine cheese, basil, sourdough bread</div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Ezine Toast</span><span class="item-price">385,00 ₺</span></div>
-                    <div class="item-desc">Ezine cheese, fresh thyme, pink tomato, German pickle, sourdough bread</div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Pesto Avocado Apartment Toast</span><span class="item-price">435,00 ₺</span></div>
-                    <div class="item-desc">Basil pesto sauce, avocado, cheddar cheese, string cheese, kashkaval cheese, sourdough bread, German pickle</div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Salmon Tartine</span><span class="item-price">545,00 ₺</span></div>
-                    <div class="item-desc">Gluten-free bread, avocado puree, smoked salmon, capers, chives, confit tomato</div>
-                </div>
-            </div>
 
-            <div class="menu-section">
-                <div class="category"><span>Sandwiches</span> <span class="category-price">435,00 ₺</span></div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Apartment Croissant Pesto</span></div>
-                    <div class="item-desc">Plain croissant, basil pesto, pink tomato, mozzarella cheese</div>
+                <div class="menu-section">
+                    <div class="category"><span>Cookies</span> <span class="category-price">135,00 ₺</span></div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Chocolate Chip Cookie</span></div>
+                        <div class="item-desc">Butter, brown sugar, egg, flour, milk chocolate chips, hazelnuts</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Amaretti Walnut Cookie</span></div>
+                        <div class="item-desc">Walnut powder, sugar, cinnamon, egg white, walnuts</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Amaretti Almond Cookie</span></div>
+                        <div class="item-desc">Almond powder, sugar, lemon zest, egg white, almonds</div>
+                    </div>
                 </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Turkey Ham Sandwich</span></div>
-                    <div class="item-desc">Sourdough bread, remoulade pickle sauce, arugula, German pickle, turkey ham, sliced fresh kashkaval cheese</div>
-                </div>
-            </div>
 
-            <div class="menu-section">
-                <div class="category">Bowls</div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Apartment Granola</span><span class="item-price">365,00 ₺</span></div>
-                    <div class="item-desc">Strained yogurt, granola, peanut butter, chia seeds, flax seeds, banana, white grapes</div>
+                <div class="menu-section">
+                    <div class="category"><span>Cakes</span> <span class="category-price">275,00 ₺</span></div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Banana & Chocolate Cake</span></div>
+                        <div class="item-desc">Banana, butter, sugar, flour, milk chocolate chips</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Lemon Blueberry Cake</span></div>
+                        <div class="item-desc">Egg, sugar, yogurt, lemon juice, vegetable oil, flour, blueberries</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Flourless & Sugar-Free Pineapple Cake</span></div>
+                        <div class="item-desc">Dates, orange juice, yogurt, egg, walnut powder, pineapple</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Vegan Brownie</span></div>
+                        <div class="item-desc">Cashew flour, almond flour, date syrup, cocoa, coconut oil</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Orange Brownie</span></div>
+                        <div class="item-desc">Sugar, egg, butter, flour, orange juice, white chocolate</div>
+                    </div>
                 </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Bircher Muesli</span><span class="item-price">345,00 ₺</span></div>
-                    <div class="item-desc">Oatmeal, pumpkin seeds, chia, flax seeds, grated green apple, cinnamon, almond milk, date puree, banana, sliced almonds</div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Poached Avocado</span><span class="item-price">365,00 ₺</span></div>
-                    <div class="item-desc">Avocado, poached egg, arugula, grated parmesan</div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Fit Plate</span><span class="item-price">385,00 ₺</span></div>
-                    <div class="item-desc">Egg, avocado, arugula, cocktail tomatoes, ezine cheese, walnuts, baked sweet potato</div>
-                </div>
-            </div>
-            
-            <div class="menu-section">
-                <div class="category"><span>Cookies</span> <span class="category-price">135,00 ₺</span></div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Chocolate Chip Cookie</span></div>
-                    <div class="item-desc">Butter, brown sugar, egg, flour, milk chocolate chips, hazelnuts</div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Amaretti Walnut Cookie</span></div>
-                    <div class="item-desc">Walnut powder, sugar, cinnamon, egg white, walnuts</div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Amaretti Almond Cookie</span></div>
-                    <div class="item-desc">Almond powder, sugar, lemon zest, egg white, almonds</div>
-                </div>
-            </div>
 
-            <div class="menu-section">
-                <div class="category"><span>Croissants</span> <span class="category-price">225,00 ₺</span></div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Plain Croissant</span></div>
+                <div class="menu-section">
+                    <div class="category"><span>Raw Bites</span> <span class="category-price">245,00 ₺</span></div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Almond Raw</span></div>
+                        <div class="item-desc">Gluten-free oats, raw almonds, dates, sugar-free dark chocolate</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Pumpkin Seed Raw</span></div>
+                        <div class="item-desc">Raw pumpkin seeds, gluten-free oats, pistachio powder, raisins</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Cashew Raw</span></div>
+                        <div class="item-desc">Raw cashews, gluten-free oats, coconut, dates, cinnamon</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Crunch Chocolate Snickers</span></div>
+                        <div class="item-desc">Dates, cornflakes, peanut butter, dark chocolate, coconut oil, peanut flour, gluten-free oat flour</div>
+                    </div>
                 </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Almond Croissant</span></div>
-                    <div class="item-desc">Butter, sugar, egg, almond powder, sliced almonds</div>
-                </div>
-            </div>
 
-            <div class="menu-section">
-                <div class="category"><span>Cakes</span> <span class="category-price">275,00 ₺</span></div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Banana & Chocolate Cake</span></div>
-                    <div class="item-desc">Banana, butter, sugar, flour, milk chocolate chips</div>
+                <div class="menu-section">
+                    <div class="category"><span>Tarts (Quiches)</span> <span class="category-price">295,00 ₺</span></div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Asparagus Quiche</span></div>
+                        <div class="item-desc">Whole wheat flour, butter, sugar, cream, milk, egg, mozzarella cheese, parmesan, garlic, asparagus</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Mushroom Quiche</span></div>
+                        <div class="item-desc">Whole wheat flour, butter, sugar, cream, milk, egg, onion, mushroom, parmesan</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Spinach Quiche</span></div>
+                        <div class="item-desc">Whole wheat flour, butter, sugar, cream, milk, egg, mozzarella cheese, garlic, spinach, parmesan</div>
+                    </div>
                 </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Lemon Blueberry Cake</span></div>
-                    <div class="item-desc">Egg, sugar, yogurt, lemon juice, vegetable oil, flour, blueberries</div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Flourless & Sugar-Free Pineapple Cake</span></div>
-                    <div class="item-desc">Dates, orange juice, yogurt, egg, walnut powder, pineapple</div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Vegan Brownie</span></div>
-                    <div class="item-desc">Cashew flour, almond flour, date syrup, cocoa, coconut oil</div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Orange Brownie</span></div>
-                    <div class="item-desc">Sugar, egg, butter, flour, orange juice, white chocolate</div>
-                </div>
-            </div>
 
-            <div class="menu-section">
-                <div class="category"><span>Raw Bites</span> <span class="category-price">245,00 ₺</span></div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Almond Raw</span></div>
-                    <div class="item-desc">Gluten-free oats, raw almonds, dates, sugar-free dark chocolate</div>
+                <div class="menu-section">
+                    <div class="category"><span>Savory Snacks</span> <span class="category-price">135,00 ₺</span></div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Gluten-Free Savory Cake w/ Veggies & Curd</span></div>
+                        <div class="item-desc">Cornmeal, gluten-free flour, sugar, milk, butter, egg, zucchini, scallion, dill, capia pepper, curd cheese</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Einkorn Pastry (Siyez)</span></div>
+                        <div class="item-desc">Curd cheese, butter, yogurt, egg white, einkorn (siyez) flour</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Whole Wheat Pastry</span></div>
+                        <div class="item-desc">Curd cheese, butter, yogurt, egg white, whole wheat flour</div>
+                    </div>
                 </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Pumpkin Seed Raw</span></div>
-                    <div class="item-desc">Raw pumpkin seeds, gluten-free oats, pistachio powder, raisins</div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Cashew Raw</span></div>
-                    <div class="item-desc">Raw cashews, gluten-free oats, coconut, dates, cinnamon</div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Crunch Chocolate Snickers</span></div>
-                    <div class="item-desc">Dates, cornflakes, peanut butter, dark chocolate, coconut oil, peanut flour, gluten-free oat flour</div>
-                </div>
-            </div>
 
-            <div class="menu-section">
-                <div class="category"><span>Tarts (Quiches)</span> <span class="category-price">295,00 ₺</span></div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Asparagus Quiche</span></div>
-                    <div class="item-desc">Whole wheat flour, butter, sugar, cream, milk, egg, mozzarella cheese, parmesan, garlic, asparagus</div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Mushroom Quiche</span></div>
-                    <div class="item-desc">Whole wheat flour, butter, sugar, cream, milk, egg, onion, mushroom, parmesan</div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Spinach Quiche</span></div>
-                    <div class="item-desc">Whole wheat flour, butter, sugar, cream, milk, egg, mozzarella cheese, garlic, spinach, parmesan</div>
+                <div class="menu-section">
+                    <div class="category"><span>Cheesecake</span> <span class="category-price">325,00 ₺</span></div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Cherry & Strawberry Cheesecake</span></div>
+                        <div class="item-desc">Labneh, sugar, flour, egg, butter, cherry and strawberry</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Lemon Cheesecake</span></div>
+                        <div class="item-desc">Labneh, sugar, flour, egg, butter, lemon curd</div>
+                    </div>
                 </div>
             </div>
-
-            <div class="menu-section">
-                <div class="category"><span>Savory Snacks</span> <span class="category-price">135,00 ₺</span></div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Gluten-Free Savory Cake w/ Veggies & Curd</span></div>
-                    <div class="item-desc">Cornmeal, gluten-free flour, sugar, milk, butter, egg, zucchini, scallion, dill, capia pepper, curd cheese</div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Einkorn Pastry (Siyez)</span></div>
-                    <div class="item-desc">Curd cheese, butter, yogurt, egg white, einkorn (siyez) flour</div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Whole Wheat Pastry</span></div>
-                    <div class="item-desc">Curd cheese, butter, yogurt, egg white, whole wheat flour</div>
-                </div>
-            </div>
-
-            <div class="menu-section">
-                <div class="category"><span>Cheesecake</span> <span class="category-price">325,00 ₺</span></div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Cherry & Strawberry Cheesecake</span></div>
-                    <div class="item-desc">Labneh, sugar, flour, egg, butter, cherry and strawberry</div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header"><span class="item-name">Lemon Cheesecake</span></div>
-                    <div class="item-desc">Labneh, sugar, flour, egg, butter, lemon curd</div>
-                </div>
-            </div>
-            
         </div>
+
+        <!-- ================= FOOD ================= -->
+        <div id="tab-yiyecek" class="tab-content">
+            <div class="content">
+                
+                <div class="menu-section">
+                    <div class="category">Organic Eggs</div>
+                    
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Confit Scrambled</span><span class="item-price">385,00 ₺</span></div>
+                        <div class="item-desc">Egg, confit tomato & pepper, ezine cheese, olive, sesame, chili oil, sourdough bread</div>
+                    </div>
+
+                    <div class="card-menu-item">
+                        <img src="simit-tabak.jpg" alt="Simit Platter" onclick="openModal(this.src)">
+                        <div class="card-content">
+                            <div class="item-header"><span class="item-name">Simit Platter</span><span class="item-price">385,00 ₺</span></div>
+                            <div class="item-desc">Halloumi cheese, egg, pink tomato, nectarine, gluten-free simit</div>
+                        </div>
+                    </div>
+
+                    <div class="card-menu-item">
+                        <img src="patatesli-goz-yumurta.jpg" alt="Sunny-Side Up w/ Potatoes" onclick="openModal(this.src)">
+                        <div class="card-content">
+                            <div class="item-header"><span class="item-name">Sunny-Side Up w/ Potatoes</span><span class="item-price">385,00 ₺</span></div>
+                            <div class="item-desc">Strained yogurt and tahini dip sauce, potatoes, kashkaval cheese, egg</div>
+                        </div>
+                    </div>
+
+                    <div class="card-menu-item">
+                        <img src="cilbir-kase.jpg" alt="Çılbır Bowl" onclick="openModal(this.src)">
+                        <div class="card-content">
+                            <div class="item-header"><span class="item-name">Çılbır Bowl</span><span class="item-price">345,00 ₺</span></div>
+                            <div class="item-desc">Strained yogurt, soft-boiled egg, sun-dried tomato pesto, tahini, gluten-free simit</div>
+                        </div>
+                    </div>
+
+                    <div class="card-menu-item">
+                        <img src="menemen-tava.jpg" alt="Menemen Skillet" onclick="openModal(this.src)">
+                        <div class="card-content">
+                            <div class="item-header"><span class="item-name">Menemen Skillet</span><span class="item-price">475,00 ₺</span></div>
+                            <div class="item-desc">Fresh tomato, egg, ezine cheese, basil, sourdough bread</div>
+                        </div>
+                    </div>
+
+                    <div class="card-menu-item">
+                        <img src="ezine-tost.jpg" alt="Ezine Toast" onclick="openModal(this.src)">
+                        <div class="card-content">
+                            <div class="item-header"><span class="item-name">Ezine Toast</span><span class="item-price">385,00 ₺</span></div>
+                            <div class="item-desc">Ezine cheese, fresh thyme, pink tomato, German pickle, sourdough bread</div>
+                        </div>
+                    </div>
+
+                    <div class="card-menu-item">
+                        <img src="pesto-avokado-tost.jpg" alt="Pesto Avocado Apartment Toast" onclick="openModal(this.src)">
+                        <div class="card-content">
+                            <div class="item-header"><span class="item-name">Pesto Avocado Apartment Toast</span><span class="item-price">435,00 ₺</span></div>
+                            <div class="item-desc">Basil pesto sauce, avocado, cheddar cheese, string cheese, kashkaval cheese, sourdough bread, German pickle</div>
+                        </div>
+                    </div>
+
+                    <div class="card-menu-item">
+                        <img src="somon-tartine.jpg" alt="Salmon Tartine" onclick="openModal(this.src)">
+                        <div class="card-content">
+                            <div class="item-header"><span class="item-name">Salmon Tartine</span><span class="item-price">545,00 ₺</span></div>
+                            <div class="item-desc">Gluten-free bread, avocado puree, smoked salmon, capers, chives, confit tomato</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <div class="category"><span>Sandwiches</span> <span class="category-price">435,00 ₺</span></div>
+                    
+                    <div class="card-menu-item">
+                        <img src="apartment-kruvasan-pesto.jpg" alt="Apartment Croissant Pesto" onclick="openModal(this.src)">
+                        <div class="card-content">
+                            <div class="item-header"><span class="item-name">Apartment Croissant Pesto</span></div>
+                            <div class="item-desc">Plain croissant, basil pesto, pink tomato, mozzarella cheese</div>
+                        </div>
+                    </div>
+
+                    <div class="card-menu-item">
+                        <img src="hindi-jambon-sandvic.jpg" alt="Turkey Ham Sandwich" onclick="openModal(this.src)">
+                        <div class="card-content">
+                            <div class="item-header"><span class="item-name">Turkey Ham Sandwich</span></div>
+                            <div class="item-desc">Sourdough bread, remoulade pickle sauce, arugula, German pickle, turkey ham, sliced fresh kashkaval cheese</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <div class="category">Bowls</div>
+                    
+                    <div class="card-menu-item">
+                        <img src="apartment-granola.jpg" alt="Apartment Granola" onclick="openModal(this.src)">
+                        <div class="card-content">
+                            <div class="item-header"><span class="item-name">Apartment Granola</span><span class="item-price">365,00 ₺</span></div>
+                            <div class="item-desc">Strained yogurt, granola, peanut butter, chia seeds, flax seeds, banana, white grapes</div>
+                        </div>
+                    </div>
+
+                    <div class="card-menu-item">
+                        <img src="bircher-muesli.jpg" alt="Bircher Muesli" onclick="openModal(this.src)">
+                        <div class="card-content">
+                            <div class="item-header"><span class="item-name">Bircher Muesli</span><span class="item-price">345,00 ₺</span></div>
+                            <div class="item-desc">Oatmeal, pumpkin seeds, chia, flax seeds, grated green apple, cinnamon, almond milk, date puree, banana, sliced almonds</div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Poached Avocado</span><span class="item-price">365,00 ₺</span></div>
+                        <div class="item-desc">Avocado, poached egg, arugula, grated parmesan</div>
+                    </div>
+
+                    <div class="card-menu-item">
+                        <img src="fit-tabak.jpg" alt="Fit Plate" onclick="openModal(this.src)">
+                        <div class="card-content">
+                            <div class="item-header"><span class="item-name">Fit Plate</span><span class="item-price">385,00 ₺</span></div>
+                            <div class="item-desc">Egg, avocado, arugula, cocktail tomatoes, ezine cheese, walnuts, baked sweet potato</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        
     </div>
     
     <div class="bottom-navbar"></div>
+
+    <div id="imageModal" class="modal" onclick="closeModal()">
+        <span class="close-modal">&times;</span>
+        <img class="modal-content" id="modalImg">
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tabbtns;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            tabbtns = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tabbtns.length; i++) {
+                tabbtns[i].classList.remove("active");
+            }
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+        var modal = document.getElementById("imageModal");
+        var modalImg = document.getElementById("modalImg");
+
+        function openModal(imgSrc) {
+            modal.style.display = "block";
+            modalImg.src = imgSrc;
+            setTimeout(() => { modal.classList.add("show"); }, 10);
+        }
+
+        function closeModal() {
+            modal.classList.remove("show");
+            setTimeout(() => { modal.style.display = "none"; }, 300);
+        }
+    </script>
 </body>
 </html>
