@@ -19,14 +19,14 @@
         flex-direction: column;
         align-items: center;
         gap: 30px;
-        font-family: 'Montserrat', sans-serif; /* Örnekteki gibi modern, yuvarlak hatlı düz font */
+        font-family: 'Montserrat', sans-serif; 
     }
 
-    /* A4 Sayfa Genel Yapısı (Her iki sayfada da geçerli olan kırmızı çerçeve tekniği) */
+    /* A4 Sayfa Genel Yapısı */
     .a4-page {
         width: 210mm;
         height: 296mm; /* Yazıcıda fazladan boş sayfa atmaması için 1mm kıstık */
-        background-color: #9a2027; /* 1. sayfadaki o tok kırmızı çerçeve rengi */
+        background-color: #9a2027; /* Kırmızı çerçeve */
         padding: 12mm; /* Çerçevenin kalınlığı */
         position: relative;
         box-shadow: 0 0 15px rgba(0,0,0,0.5);
@@ -36,10 +36,11 @@
 
     /* Çerçevenin içindeki krem zemin */
     .page-inner {
-        background-color: #FAF8F5; /* Sample görseldeki krem zemin */
+        background-color: #FAF8F5; /* Krem zemin */
         width: 100%;
         height: 100%;
         position: relative;
+        overflow: hidden; /* Dışarı taşan dekoratif resimleri keser */
     }
 
     /* --- 1. SAYFA STİLLERİ --- */
@@ -53,32 +54,64 @@
         filter: brightness(0.6);
     }
 
+    /* --- DEKORATİF RESİMLER (2. SAYFA İÇİN) --- */
+    .deco-img {
+        position: absolute;
+        opacity: 0.15; /* Siyah beyaz fotoğrafların yazıyı boğmaması için şeffaflık */
+        mix-blend-mode: multiply; /* Arka planla daha iyi kaynaşması için (sanki kağıda basılmış gibi) */
+        z-index: 0;
+        pointer-events: none; /* Üzerine tıklanmasını engeller */
+        filter: grayscale(100%); /* Her ihtimale karşı tam siyah beyaz kalmasını garantiler */
+    }
+    
+    .img-1 {
+        top: 25mm;
+        left: -10mm;
+        width: 70mm;
+        transform: rotate(-15deg);
+    }
+    
+    .img-2 {
+        bottom: 80mm;
+        right: -15mm;
+        width: 80mm;
+        transform: rotate(20deg);
+    }
+    
+    .img-3 {
+        bottom: 5mm;
+        left: 30mm;
+        width: 65mm;
+        transform: rotate(-8deg);
+    }
+
     /* --- 2. SAYFA STİLLERİ (Menü İçeriği) --- */
     .menu-container {
-        padding: 18mm 15mm; /* İçeriden biraz nefes alacak boşluklar */
-        column-count: 2; /* İki sütunlu harika düzen */
-        column-gap: 15mm; /* Sütunlar arası boşluk */
+        padding: 20mm 15mm; /* İçeriden daha geniş boşluklar */
+        column-count: 2; 
+        column-gap: 15mm; 
         height: 100%;
+        position: relative;
+        z-index: 1; /* Yazıların fotoğrafların üstünde kalması için */
     }
 
     .menu-section {
         break-inside: avoid;
         page-break-inside: avoid;
-        margin-bottom: 35px; /* Kategoriler arası boşluk */
+        margin-bottom: 55px; /* Kategoriler arası boşluğu artırdık (Sayfayı doldurmak için) */
     }
 
-    /* Örnek fotoğraftaki el yazısı başlıklar */
     .category {
         font-family: 'Dancing Script', cursive;
-        color: #d14b3d; /* Örnekteki kiremit/kırmızı tonu */
-        font-size: 32px; /* Başlıklar büyük ve gösterişli */
+        color: #d14b3d; 
+        font-size: 36px; /* Başlıkları biraz daha büyüttük */
         font-weight: 700;
-        margin-bottom: 15px;
+        margin-bottom: 20px;
         letter-spacing: 1px;
     }
 
     .menu-item {
-        margin-bottom: 12px;
+        margin-bottom: 16px; /* İçecekler arası boşluğu artırdık */
     }
 
     .item-header {
@@ -88,24 +121,24 @@
     }
 
     .item-name {
-        font-size: 12px;
+        font-size: 13.5px; /* Fontu büyüterek sayfaya daha iyi yayılmasını sağladık */
         font-weight: 700;
         color: #4a4a4a;
     }
 
     .item-price {
-        font-size: 12px;
+        font-size: 13.5px;
         font-weight: 700;
         color: #4a4a4a;
         margin-left: 10px;
     }
 
     .item-desc {
-        font-size: 10px;
+        font-size: 11px; /* Açıklamaları da biraz büyüttük */
         color: #888;
-        margin-top: 3px;
-        line-height: 1.4;
-        max-width: 85%; /* Açıklamaların fiyatın altına taşmasını engeller */
+        margin-top: 4px;
+        line-height: 1.5;
+        max-width: 90%; 
         font-weight: 400;
     }
 
@@ -146,7 +179,6 @@
     <!-- ================= 1. SAYFA ================= -->
     <div class="a4-page">
         <div class="page-inner">
-            <!-- Logonuz tam ortada, %85 genişlik ve biraz daha koyu -->
             <img src="logo.png" alt="Apartment Logo" class="center-logo">
         </div>
     </div>
@@ -154,6 +186,12 @@
     <!-- ================= 2. SAYFA ================= -->
     <div class="a4-page">
         <div class="page-inner">
+            
+            <!-- Rastgele yerleştirilmiş dekoratif fotoğraflar -->
+            <img src="im1.jpeg" class="deco-img img-1" alt="">
+            <img src="im2.jpeg" class="deco-img img-2" alt="">
+            <img src="im3.jpeg" class="deco-img img-3" alt="">
+
             <div class="menu-container">
                 
                 <!-- Sıcak Kahveler -->
