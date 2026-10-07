@@ -3,76 +3,91 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Apartment Baskı Menüsü</title>
-<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+<title>A4 Menü Tasarımı</title>
 <style>
-    *, *::before, *::after { box-sizing: border-box; }
+    *, *::before, *::after { 
+        box-sizing: border-box; 
+    }
+    
     body { 
-        font-family: 'Merriweather', serif; 
         margin: 0; 
         padding: 20px; 
-        color: #2C2C2C; 
-        background-color: #FAF8F5; /* Ekranda görünecek kağıt rengi */
+        background-color: #555; /* Ekranda sayfaların daha net görülmesi için koyu arka plan */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+        font-family: sans-serif;
     }
 
-    /* BURASI ÇIKTI EKRANINA ÖZEL TASARIMDIR */
+    /* A4 Sayfa Genel Yapısı */
+    .a4-page {
+        width: 210mm;
+        height: 297mm;
+        background-color: #FAF8F5; /* Sample görseldeki gibi hafif kırık beyaz/krem zemin */
+        position: relative;
+        box-shadow: 0 0 15px rgba(0,0,0,0.5);
+        flex-shrink: 0;
+        overflow: hidden;
+    }
+
+    /* 1. Sayfa - Çerçeveli ve Logolu Kısım */
+    .page-1 {
+        border: 12mm solid #9a2027; /* Sample görseldeki koyu kırmızı çerçeve */
+    }
+
+    /* Logoyu Tam Merkeze Konumlandırma */
+    .center-logo {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 40%; /* Ne çok büyük ne çok küçük olacak ideal oran */
+        height: auto;
+    }
+
+    /* 2. Sayfa - Menü İçerikleri vs. için ayrılan boş yapı */
+    .page-2 {
+        padding: 20mm;
+        background-color: #FFFFFF;
+    }
+
+    /* YAZICI (PRINT) AYARLARI */
     @media print {
-        @page {
-            size: A4 portrait; /* A4 dikey kağıt boyutu */
-            margin: 10mm; /* Yazıcı kenar boşlukları */
-        }
         body {
-            background-color: white !important; /* Çıktıda zemin tamamen beyaz olsun mürekkep yemesin */
+            background-color: transparent;
             padding: 0;
             margin: 0;
-            -webkit-print-color-adjust: exact; /* Renklerin çıktıda aynı görünmesini zorlar */
-            print-color-adjust: exact;
+            gap: 0;
+            display: block;
         }
         
-        /* Çıktıda görünmesini İSTEMEDİĞİN şeyleri gizle (örneğin dil butonları, ekstra boşluklar) */
-        .no-print {
-            display: none !important;
+        .a4-page {
+            box-shadow: none;
+            margin: 0;
+            page-break-after: always;
+            page-break-inside: avoid;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
         }
 
-        /* Çıktıda sayfaların bölünmesini engellemek için */
-        .menu-section {
-            page-break-inside: avoid;
-            break-inside: avoid;
+        @page {
+            size: A4 portrait;
+            margin: 0; /* Çerçevenin kenarlara tam sıfır oturması için */
         }
     }
-
-    /* TASARIM İSKELETİ (Geliştirilecek kısım) */
-    .header { text-align: center; margin-bottom: 30px; border-bottom: 2px solid #800020; padding-bottom: 10px; }
-    .header img { height: 100px; }
-    .content { column-count: 2; column-gap: 30px; }
-    
-    .menu-section { margin-bottom: 20px; }
-    .category { color: #800020; font-size: 18px; font-weight: 900; text-transform: uppercase; margin-bottom: 10px; border-bottom: 1px solid #ccc; }
-    .menu-item { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px; }
-    .item-name { font-weight: 700; }
-    .item-price { font-weight: 700; }
 </style>
 </head>
 <body>
 
-    <!-- Çıktıda çıkmayacak, sadece ekranda görünecek bilgi çubuğu -->
-    <div class="no-print" style="background:#800020; color:white; text-align:center; padding:10px; margin-bottom:20px; font-family:sans-serif; border-radius:5px;">
-        🖨️ Çıktı almak için <b>Ctrl + P</b> (Mac için Cmd + P) tuşlarına basın.
+    <!-- 1. SAYFA -->
+    <div class="a4-page page-1">
+        <img src="logo.png" alt="Apartment Logo" class="center-logo">
     </div>
 
-    <div class="header">
-        <img src="logo.png" alt="Apartment Logo">
-        <h1>MENÜ</h1>
-    </div>
-
-    <div class="content">
-        <!-- Buraya çıktı için özel tasarlanmış menü öğeleri gelecek -->
-        <div class="menu-section">
-            <div class="category">Sıcak Kahveler</div>
-            <div class="menu-item"><span class="item-name">Espresso</span><span class="item-price">180 ₺</span></div>
-            <div class="menu-item"><span class="item-name">Americano</span><span class="item-price">200 ₺</span></div>
-            <div class="menu-item"><span class="item-name">Latte</span><span class="item-price">240 ₺</span></div>
-        </div>
+    <!-- 2. SAYFA -->
+    <div class="a4-page page-2">
+        <!-- 2. Sayfanın içeriğini (menü maddeleri vs.) buraya ekleyebilirsiniz -->
     </div>
 
 </body>
