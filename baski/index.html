@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>A4 Menü Tasarımı</title>
+<!-- Kategori başlıkları için el yazısı, içerikler için modern ve sade bir font ekliyoruz -->
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
     *, *::before, *::after { 
         box-sizing: border-box; 
@@ -12,53 +14,99 @@
     body { 
         margin: 0; 
         padding: 20px; 
-        background-color: #555; /* Ekranda sayfaların daha net görülmesi için koyu arka plan */
+        background-color: #555; 
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: 30px;
-        font-family: sans-serif;
+        font-family: 'Montserrat', sans-serif; /* Örnekteki gibi modern, yuvarlak hatlı düz font */
     }
 
-    /* A4 Sayfa Genel Yapısı */ 
+    /* A4 Sayfa Genel Yapısı (Her iki sayfada da geçerli olan kırmızı çerçeve tekniği) */
     .a4-page {
         width: 210mm;
-        height: 297mm;
-        background-color: #FAF8F5; /* Sample görseldeki gibi hafif kırık beyaz/krem zemin */
+        height: 296mm; /* Yazıcıda fazladan boş sayfa atmaması için 1mm kıstık */
+        background-color: #9a2027; /* 1. sayfadaki o tok kırmızı çerçeve rengi */
+        padding: 12mm; /* Çerçevenin kalınlığı */
         position: relative;
         box-shadow: 0 0 15px rgba(0,0,0,0.5);
         flex-shrink: 0;
         overflow: hidden;
     }
 
-    /* 1. Sayfa - Çerçeveli Kısım (Beyaz pikselleri tamamen yok eden yapı) */
-    .page-1 {
-        background-color: #9a2027; /* Sayfanın en dışını tamamen kırmızıya boyar, dışta beyaz piksel kalamaz */
-        padding: 12mm; /* Kırmızı çerçevenin kalınlığı */
-        border: none; /* Eski border yapısını iptal ediyoruz */
-    }
-
-    .page-1-inner {
-        background-color: #FAF8F5; /* İç kısmın krem rengi */
+    /* Çerçevenin içindeki krem zemin */
+    .page-inner {
+        background-color: #FAF8F5; /* Sample görseldeki krem zemin */
         width: 100%;
         height: 100%;
         position: relative;
     }
 
-    /* Logoyu Tam Merkeze Konumlandırma */
+    /* --- 1. SAYFA STİLLERİ --- */
     .center-logo {
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        width: 85%; /* Ne çok büyük ne çok küçük olacak ideal oran */
+        width: 85%;
         height: auto;
+        filter: brightness(0.6);
     }
 
-    /* 2. Sayfa - Menü İçerikleri vs. için ayrılan boş yapı */
-    .page-2 {
-        padding: 20mm;
-        background-color: #FFFFFF;
+    /* --- 2. SAYFA STİLLERİ (Menü İçeriği) --- */
+    .menu-container {
+        padding: 18mm 15mm; /* İçeriden biraz nefes alacak boşluklar */
+        column-count: 2; /* İki sütunlu harika düzen */
+        column-gap: 15mm; /* Sütunlar arası boşluk */
+        height: 100%;
+    }
+
+    .menu-section {
+        break-inside: avoid;
+        page-break-inside: avoid;
+        margin-bottom: 35px; /* Kategoriler arası boşluk */
+    }
+
+    /* Örnek fotoğraftaki el yazısı başlıklar */
+    .category {
+        font-family: 'Dancing Script', cursive;
+        color: #d14b3d; /* Örnekteki kiremit/kırmızı tonu */
+        font-size: 32px; /* Başlıklar büyük ve gösterişli */
+        font-weight: 700;
+        margin-bottom: 15px;
+        letter-spacing: 1px;
+    }
+
+    .menu-item {
+        margin-bottom: 12px;
+    }
+
+    .item-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+    }
+
+    .item-name {
+        font-size: 12px;
+        font-weight: 700;
+        color: #4a4a4a;
+    }
+
+    .item-price {
+        font-size: 12px;
+        font-weight: 700;
+        color: #4a4a4a;
+        margin-left: 10px;
+    }
+
+    .item-desc {
+        font-size: 10px;
+        color: #888;
+        margin-top: 3px;
+        line-height: 1.4;
+        max-width: 85%; /* Açıklamaların fiyatın altına taşmasını engeller */
+        font-weight: 400;
     }
 
     /* YAZICI (PRINT) AYARLARI */
@@ -74,7 +122,6 @@
         .a4-page {
             box-shadow: none;
             margin: 0;
-            /* Taşmayı engellemek için yüksekliği 1 milimetre kıstık, gözle görülmez ama sorunu çözer */
             width: 210mm;
             height: 296mm; 
             page-break-after: always;
@@ -83,30 +130,108 @@
             print-color-adjust: exact;
         }
 
-        /* Son sayfadan sonra fazladan boş sayfa atmasını engeller */
         .a4-page:last-child {
             page-break-after: auto;
         }
 
         @page {
             size: A4 portrait;
-            margin: 0; /* Çerçevenin kenarlara tam sıfır oturması için */
+            margin: 0;
         }
     }
 </style>
 </head>
 <body>
 
-    <!-- 1. SAYFA -->
-    <div class="a4-page page-1">
-        <div class="page-1-inner">
+    <!-- ================= 1. SAYFA ================= -->
+    <div class="a4-page">
+        <div class="page-inner">
+            <!-- Logonuz tam ortada, %85 genişlik ve biraz daha koyu -->
             <img src="logo.png" alt="Apartment Logo" class="center-logo">
         </div>
     </div>
 
-    <!-- 2. SAYFA -->
-    <div class="a4-page page-2">
-        <!-- 2. Sayfanın içeriğini (menü maddeleri vs.) buraya ekleyebilirsiniz -->
+    <!-- ================= 2. SAYFA ================= -->
+    <div class="a4-page">
+        <div class="page-inner">
+            <div class="menu-container">
+                
+                <!-- Sıcak Kahveler -->
+                <div class="menu-section">
+                    <div class="category">Sıcak Kahveler</div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Espresso</span><span class="item-price">180 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Americano</span><span class="item-price">200 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Cortado</span><span class="item-price">220 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Flat White</span><span class="item-price">230 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Latte</span><span class="item-price">240 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Cappuccino</span><span class="item-price">240 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Matcha Latte</span><span class="item-price">300 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Türk Kahvesi</span><span class="item-price">180 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Filtre Kahve</span><span class="item-price">210 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">V60 Demleme</span><span class="item-price">260 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Macchiato</span><span class="item-price">200 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Spanish Latte</span><span class="item-price">265 ₺</span></div></div>
+                </div>
+
+                <!-- Soğuk Kahveler -->
+                <div class="menu-section">
+                    <div class="category">Soğuk Kahveler</div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Ice Latte</span><span class="item-price">260 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Ice Americano</span><span class="item-price">220 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Ice Cortado</span><span class="item-price">240 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Ice Matcha Latte</span><span class="item-price">320 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Cold Drip</span><span class="item-price">270 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Ice V60 Demleme</span><span class="item-price">275 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Ice Spanish Latte</span><span class="item-price">280 ₺</span></div></div>
+                </div>
+
+                <!-- Çaylar -->
+                <div class="menu-section">
+                    <div class="category">Çaylar</div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Earl Grey Siyah Çay</span><span class="item-price">90 ₺</span></div>
+                        <div class="item-desc">Siyah çay, doğal aroma</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Therapy Oolong Çayı</span><span class="item-price">230 ₺</span></div>
+                        <div class="item-desc">Oolong, meyankökü, portakal, lavanta</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Detox Bitki Çayı</span><span class="item-price">230 ₺</span></div>
+                        <div class="item-desc">Rooibos, yeşil çay, elma, tatlı nane</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Red Berry Meyve Çayı</span><span class="item-price">230 ₺</span></div>
+                        <div class="item-desc">Ananas, elma, hibiskus, çilek, böğürtlen, frambuaz, doğal aroma, ayçiçeği</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Limon Zencefil Bitki Çayı</span><span class="item-price">230 ₺</span></div>
+                        <div class="item-desc">Hibiskus, zencefil, elma, limon, gül yaprak, limonotu</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Rooibos Bourbon Vanilya Bitki Çayı</span><span class="item-price">230 ₺</span></div>
+                        <div class="item-desc">Rooibos, doğal vanilya aroması</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Cold Play Bitki Çayı</span><span class="item-price">230 ₺</span></div>
+                        <div class="item-desc">Limonotu, portakal, tarçın, limon, zencefil, meyankökü, karanfil, rezene, kırmızıbiber, tatlı nane</div>
+                    </div>
+                </div>
+
+                <!-- Diğer İçecekler -->
+                <div class="menu-section">
+                    <div class="category">Diğer İçecekler</div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">APT</span><span class="item-price">270 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Sıcak Çikolata</span><span class="item-price">240 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Salep</span><span class="item-price">240 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Kombucha</span><span class="item-price">300 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Portakal Suyu</span><span class="item-price">270 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Soda</span><span class="item-price">90 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Su</span><span class="item-price">75 ₺</span></div></div>
+                </div>
+
+            </div>
+        </div>
     </div>
 
 </body>
