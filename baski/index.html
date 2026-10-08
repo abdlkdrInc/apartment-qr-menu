@@ -49,15 +49,24 @@
         transform: translate(-50%, -50%);
         width: 85%;
         height: auto;
-        filter: brightness(0.6);
+        /* Parlaklık düşürme ayarı kaldırıldı, logo orijinal renginde */
     }
 
     /* --- DEKORATİF RESİMLER (2. SAYFA İÇİN) --- */
+    .deco-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden; /* Resimlerin krem zeminden dışarı taşıp kırmızı çerçeveyi bozmasını engeller */
+        z-index: 0;
+    }
+
     .deco-img {
         position: absolute;
         opacity: 0.15; 
         mix-blend-mode: multiply; 
-        z-index: 0;
         pointer-events: none; 
         filter: grayscale(100%); 
     }
@@ -68,7 +77,6 @@
 
     /* --- 2. SAYFA STİLLERİ (Menü İçeriği) --- */
     .menu-container {
-        /* Eklenen ürünlerin sığması için üst/alt padding boşlukları azaltıldı */
         padding: 12mm 15mm; 
         column-count: 2; 
         column-gap: 15mm; 
@@ -82,21 +90,19 @@
         page-break-inside: avoid;
         display: inline-block; 
         width: 100%; 
-        /* Kategoriler arası boşluk daraltıldı */
         margin-bottom: 25px; 
     }
 
     .category {
         font-family: 'Dancing Script', cursive;
         color: #d14b3d; 
-        font-size: 34px; /* Başlıklar çok hafif küçültüldü */
+        font-size: 34px; 
         font-weight: 700;
-        margin-bottom: 12px; /* Başlık altı boşluk daraltıldı */
+        margin-bottom: 12px;
         letter-spacing: 1px;
     }
 
     .menu-item {
-        /* Ürünler arası boşluk daraltıldı */
         margin-bottom: 10px; 
     }
 
@@ -107,7 +113,7 @@
     }
 
     .item-name {
-        font-size: 13px; /* Metinler sığsın diye çok hafif küçültüldü */
+        font-size: 13px; 
         font-weight: 700;
         color: #4a4a4a;
     }
@@ -176,9 +182,12 @@
     <div class="a4-page">
         <div class="page-inner">
             
-            <img src="im1.jpeg" class="deco-img img-1" alt="">
-            <img src="im2.jpeg" class="deco-img img-2" alt="">
-            <img src="im3.jpeg" class="deco-img img-3" alt="">
+            <!-- Taşırmayı önleyen özel konteyner -->
+            <div class="deco-container">
+                <img src="im1.jpeg" class="deco-img img-1" alt="">
+                <img src="im2.jpeg" class="deco-img img-2" alt="">
+                <img src="im3.jpeg" class="deco-img img-3" alt="">
+            </div>
 
             <div class="menu-container">
                 
