@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>A4 Menü Tasarımı</title>
-<!-- Kategori başlıkları için el yazısı, içerikler için modern ve sade bir font ekliyoruz -->
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
     *, *::before, *::after { 
@@ -25,22 +24,21 @@
     /* A4 Sayfa Genel Yapısı */
     .a4-page {
         width: 210mm;
-        height: 296mm; /* Yazıcıda fazladan boş sayfa atmaması için 1mm kıstık */
-        background-color: #9a2027; /* Kırmızı çerçeve */
-        padding: 12mm; /* Çerçevenin kalınlığı */
+        height: 297mm; 
+        background-color: #9a2027; 
+        padding: 12mm; 
         position: relative;
         box-shadow: 0 0 15px rgba(0,0,0,0.5);
         flex-shrink: 0;
-        overflow: hidden;
+        overflow: hidden; /* Ekranda dekoratif resimleri sınırlandırır */
     }
 
     /* Çerçevenin içindeki krem zemin */
     .page-inner {
-        background-color: #FAF8F5; /* Krem zemin */
+        background-color: #FAF8F5; 
         width: 100%;
         height: 100%;
         position: relative;
-        overflow: hidden; /* Dışarı taşan dekoratif resimleri keser */
     }
 
     /* --- 1. SAYFA STİLLERİ --- */
@@ -51,66 +49,53 @@
         transform: translate(-50%, -50%);
         width: 85%;
         height: auto;
+        filter: brightness(0.6);
     }
 
     /* --- DEKORATİF RESİMLER (2. SAYFA İÇİN) --- */
     .deco-img {
         position: absolute;
-        opacity: 0.15; /* Siyah beyaz fotoğrafların yazıyı boğmaması için şeffaflık */
-        mix-blend-mode: multiply; /* Arka planla daha iyi kaynaşması için (sanki kağıda basılmış gibi) */
+        opacity: 0.15; 
+        mix-blend-mode: multiply; 
         z-index: 0;
-        pointer-events: none; /* Üzerine tıklanmasını engeller */
-        filter: grayscale(100%); /* Her ihtimale karşı tam siyah beyaz kalmasını garantiler */
+        pointer-events: none; 
+        filter: grayscale(100%); 
     }
     
-    .img-1 {
-        top: 25mm;
-        left: -10mm;
-        width: 70mm;
-        transform: rotate(-15deg);
-    }
-    
-    .img-2 {
-        bottom: 80mm;
-        right: -15mm;
-        width: 80mm;
-        transform: rotate(20deg);
-    }
-    
-    .img-3 {
-        bottom: 5mm;
-        left: 30mm;
-        width: 65mm;
-        transform: rotate(-8deg);
-    }
+    .img-1 { top: 25mm; left: -10mm; width: 70mm; transform: rotate(-15deg); }
+    .img-2 { bottom: 80mm; right: -15mm; width: 80mm; transform: rotate(20deg); }
+    .img-3 { bottom: 5mm; left: 30mm; width: 65mm; transform: rotate(-8deg); }
 
     /* --- 2. SAYFA STİLLERİ (Menü İçeriği) --- */
     .menu-container {
-        padding: 20mm 15mm; /* İçeriden daha geniş boşluklar */
+        padding: 20mm 15mm; 
         column-count: 2; 
         column-gap: 15mm; 
         height: 100%;
         position: relative;
-        z-index: 1; /* Yazıların fotoğrafların üstünde kalması için */
+        z-index: 1; 
     }
 
     .menu-section {
+        /* BÖLÜNME ENGELLEYİCİ KRİTİK KODLAR */
         break-inside: avoid;
         page-break-inside: avoid;
-        margin-bottom: 55px; /* Kategoriler arası boşluğu artırdık (Sayfayı doldurmak için) */
+        display: inline-block; /* Sütunların baskıda dağılmasını engeller */
+        width: 100%; /* Sütun genişliğini korur */
+        margin-bottom: 50px; 
     }
 
     .category {
         font-family: 'Dancing Script', cursive;
         color: #d14b3d; 
-        font-size: 36px; /* Başlıkları biraz daha büyüttük */
+        font-size: 36px; 
         font-weight: 700;
         margin-bottom: 20px;
         letter-spacing: 1px;
     }
 
     .menu-item {
-        margin-bottom: 16px; /* İçecekler arası boşluğu artırdık */
+        margin-bottom: 16px; 
     }
 
     .item-header {
@@ -120,7 +105,7 @@
     }
 
     .item-name {
-        font-size: 13.5px; /* Fontu büyüterek sayfaya daha iyi yayılmasını sağladık */
+        font-size: 13.5px; 
         font-weight: 700;
         color: #4a4a4a;
     }
@@ -133,7 +118,7 @@
     }
 
     .item-desc {
-        font-size: 11px; /* Açıklamaları da biraz büyüttük */
+        font-size: 11px; 
         color: #888;
         margin-top: 4px;
         line-height: 1.5;
@@ -141,34 +126,41 @@
         font-weight: 400;
     }
 
-    /* YAZICI (PRINT) AYARLARI */
+    /* ====================================================
+       YAZICI (PRINT) İÇİN ÖZEL KURŞUN GEÇİRMEZ AYARLAR
+       ==================================================== */
     @media print {
         body {
-            background-color: transparent;
-            padding: 0;
-            margin: 0;
-            gap: 0;
-            display: block;
+            background-color: transparent !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            display: block !important;
         }
         
         .a4-page {
-            box-shadow: none;
-            margin: 0;
-            width: 210mm;
-            height: 296mm; 
-            page-break-after: always;
-            page-break-inside: avoid;
-            -webkit-print-color-adjust: exact;
-            print-color-adjust: exact;
+            box-shadow: none !important;
+            margin: 0 !important;
+            width: 210mm !important;
+            height: 297mm !important; /* Tam A4 boyutu zorlaması */
+            page-break-after: always !important;
+            page-break-inside: avoid !important;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
         }
 
-        .a4-page:last-child {
-            page-break-after: auto;
+        .page-inner {
+            /* Çıktıda içeriğin bıçak gibi kesilmesini önler */
+            overflow: visible !important; 
+        }
+
+        /* Son sayfada fazladan beyaz kağıt atmasını önler */
+        .a4-page:last-of-type {
+            page-break-after: auto !important;
         }
 
         @page {
             size: A4 portrait;
-            margin: 0;
+            margin: 0; 
         }
     }
 </style>
@@ -186,18 +178,17 @@
     <div class="a4-page">
         <div class="page-inner">
             
-            <!-- Rastgele yerleştirilmiş dekoratif fotoğraflar -->
             <img src="im1.jpeg" class="deco-img img-1" alt="">
             <img src="im2.jpeg" class="deco-img img-2" alt="">
             <img src="im3.jpeg" class="deco-img img-3" alt="">
 
             <div class="menu-container">
                 
-                <!-- Sıcak Kahveler -->
                 <div class="menu-section">
                     <div class="category">Sıcak Kahveler</div>
                     <div class="menu-item"><div class="item-header"><span class="item-name">Espresso</span><span class="item-price">180 ₺</span></div></div>
-                    <div class="menu-item"><div class="item-header"><span class="item-name">Americano</span><span class="item-price">200 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Americano</span><span class="item-price">205 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Long Black</span><span class="item-price">195 ₺</span></div></div>
                     <div class="menu-item"><div class="item-header"><span class="item-name">Cortado</span><span class="item-price">220 ₺</span></div></div>
                     <div class="menu-item"><div class="item-header"><span class="item-name">Flat White</span><span class="item-price">230 ₺</span></div></div>
                     <div class="menu-item"><div class="item-header"><span class="item-name">Latte</span><span class="item-price">240 ₺</span></div></div>
@@ -208,13 +199,14 @@
                     <div class="menu-item"><div class="item-header"><span class="item-name">V60 Demleme</span><span class="item-price">260 ₺</span></div></div>
                     <div class="menu-item"><div class="item-header"><span class="item-name">Macchiato</span><span class="item-price">200 ₺</span></div></div>
                     <div class="menu-item"><div class="item-header"><span class="item-name">Spanish Latte</span><span class="item-price">265 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Espresso İlave Shot</span><span class="item-price">60 ₺</span></div></div>
                 </div>
 
-                <!-- Soğuk Kahveler -->
                 <div class="menu-section">
                     <div class="category">Soğuk Kahveler</div>
                     <div class="menu-item"><div class="item-header"><span class="item-name">Ice Latte</span><span class="item-price">260 ₺</span></div></div>
                     <div class="menu-item"><div class="item-header"><span class="item-name">Ice Americano</span><span class="item-price">220 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">Ice Flat White</span><span class="item-price">240 ₺</span></div></div>
                     <div class="menu-item"><div class="item-header"><span class="item-name">Ice Cortado</span><span class="item-price">240 ₺</span></div></div>
                     <div class="menu-item"><div class="item-header"><span class="item-name">Ice Matcha Latte</span><span class="item-price">320 ₺</span></div></div>
                     <div class="menu-item"><div class="item-header"><span class="item-name">Cold Drip</span><span class="item-price">270 ₺</span></div></div>
@@ -222,7 +214,6 @@
                     <div class="menu-item"><div class="item-header"><span class="item-name">Ice Spanish Latte</span><span class="item-price">280 ₺</span></div></div>
                 </div>
 
-                <!-- Çaylar -->
                 <div class="menu-section">
                     <div class="category">Çaylar</div>
                     <div class="menu-item">
@@ -255,10 +246,9 @@
                     </div>
                 </div>
 
-                <!-- Diğer İçecekler -->
                 <div class="menu-section">
                     <div class="category">Diğer İçecekler</div>
-                    <div class="menu-item"><div class="item-header"><span class="item-name">Hoşaf</span><span class="item-price">270 ₺</span></div></div>
+                    <div class="menu-item"><div class="item-header"><span class="item-name">APT</span><span class="item-price">270 ₺</span></div></div>
                     <div class="menu-item"><div class="item-header"><span class="item-name">Sıcak Çikolata</span><span class="item-price">240 ₺</span></div></div>
                     <div class="menu-item"><div class="item-header"><span class="item-name">Salep</span><span class="item-price">240 ₺</span></div></div>
                     <div class="menu-item"><div class="item-header"><span class="item-name">Kombucha</span><span class="item-price">300 ₺</span></div></div>
