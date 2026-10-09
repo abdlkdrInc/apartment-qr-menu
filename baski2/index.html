@@ -76,7 +76,8 @@
 
     /* --- 2. SAYFA STİLLERİ (Menü İçeriği) --- */
     .menu-container {
-        padding: 12mm 15mm; 
+        /* Fırın menüsü uzun olduğu için dış boşluklar kısıldı */
+        padding: 10mm 15mm; 
         column-count: 2; 
         column-gap: 15mm; 
         height: 100%;
@@ -89,32 +90,33 @@
         page-break-inside: avoid;
         display: inline-block; 
         width: 100%; 
-        margin-bottom: 25px; 
+        /* Kategoriler arası boşluk taşmayı önlemek için daraltıldı */
+        margin-bottom: 15px; 
     }
 
     .category {
         font-family: 'Dancing Script', cursive;
         color: #d14b3d; 
-        font-size: 34px; 
+        font-size: 30px; /* Başlık boyutu kısıldı */
         font-weight: 700;
-        margin-bottom: 12px;
+        margin-bottom: 8px; /* Başlık altı boşluk kısıldı */
         letter-spacing: 1px;
         display: flex;
         justify-content: space-between;
         align-items: baseline;
     }
 
-    /* Kategori fiyatını modern fontla sağa dayamak için */
     .category-price {
         font-family: 'Montserrat', sans-serif;
-        font-size: 15px;
+        font-size: 14px;
         color: #4a4a4a;
         font-weight: 700;
         letter-spacing: normal;
     }
 
     .menu-item {
-        margin-bottom: 12px; 
+        /* Ürünler arası boşluk kısıldı */
+        margin-bottom: 8px; 
     }
 
     .item-header {
@@ -124,16 +126,16 @@
     }
 
     .item-name {
-        font-size: 13px; 
+        font-size: 12.5px; 
         font-weight: 700;
         color: #4a4a4a;
     }
 
     .item-desc {
-        font-size: 11px; 
+        font-size: 10.5px; /* Uzun açıklamaların sığması için küçültüldü */
         color: #888;
-        margin-top: 3px;
-        line-height: 1.3;
+        margin-top: 2px;
+        line-height: 1.25;
         max-width: 95%; 
         font-weight: 400;
     }
