@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A4 Yiyecekler Menü Tasarımı</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+    *, *::before, *::after { 
+        box-sizing: border-box; 
+    }
+    
+    body { 
+        margin: 0; 
+        padding: 20px; 
+        background-color: #555; 
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+        font-family: 'Montserrat', sans-serif; 
+    }
+
+    /* A4 Sayfa Genel Yapısı */
+    .a4-page {
+        width: 210mm;
+        height: 297mm; 
+        background-color: #9a2027; 
+        padding: 12mm; 
+        position: relative;
+        box-shadow: 0 0 15px rgba(0,0,0,0.5);
+        flex-shrink: 0;
+        overflow: hidden; 
+    }
+
+    /* Çerçevenin içindeki krem zemin */
+    .page-inner {
+        background-color: #FAF8F5; 
+        width: 100%;
+        height: 100%;
+        position: relative;
+    }
+
+    /* --- 1. SAYFA STİLLERİ --- */
+    .center-logo {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 85%;
+        height: auto;
+    }
+
+    /* --- DEKORATİF RESİMLER (2. SAYFA İÇİN) --- */
+    .deco-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden; 
+        z-index: 0;
+    }
+
+    .deco-img {
+        position: absolute;
+        opacity: 0.15; 
+        mix-blend-mode: multiply; 
+        pointer-events: none; 
+        filter: grayscale(100%); 
+    }
+    
+    /* 4 adet resmi sayfanın köşelerine dengeli dağıttık */
+    .img-1 { top: 25mm; left: -10mm; width: 70mm; transform: rotate(-15deg); }
+    .img-2 { bottom: 80mm; right: -15mm; width: 80mm; transform: rotate(20deg); }
+    .img-3 { bottom: 15mm; left: 15mm; width: 65mm; transform: rotate(-8deg); }
+    .img-4 { top: 15mm; right: -5mm; width: 65mm; transform: rotate(12deg); } /* Yeni Eklenen 4. Fotoğraf */
+
+    /* --- 2. SAYFA STİLLERİ (Menü İçeriği) --- */
+    .menu-container {
+        padding: 15mm 15mm; 
+        column-count: 2; 
+        column-gap: 15mm; 
+        height: 100%;
+        position: relative;
+        z-index: 1; 
+    }
+
+    .menu-section {
+        break-inside: avoid;
+        page-break-inside: avoid;
+        display: inline-block; 
+        width: 100%; 
+        margin-bottom: 22px; 
+    }
+
+    .category {
+        font-family: 'Dancing Script', cursive;
+        color: #d14b3d; 
+        font-size: 32px; 
+        font-weight: 700;
+        margin-bottom: 12px;
+        letter-spacing: 1px;
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+    }
+
+    .category-price {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 14px;
+        color: #4a4a4a;
+        font-weight: 700;
+        letter-spacing: normal;
+    }
+
+    .menu-item {
+        margin-bottom: 12px; 
+    }
+
+    .item-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+    }
+
+    .item-name {
+        font-size: 13px; 
+        font-weight: 700;
+        color: #4a4a4a;
+    }
+    
+    .item-price {
+        font-size: 13px;
+        font-weight: 700;
+        color: #4a4a4a;
+        margin-left: 10px;
+    }
+
+    .item-desc {
+        font-size: 11px; 
+        color: #888;
+        margin-top: 4px;
+        line-height: 1.35;
+        max-width: 95%; 
+        font-weight: 400;
+    }
+
+    /* YAZICI (PRINT) İÇİN ÖZEL KURŞUN GEÇİRMEZ AYARLAR */
+    @media print {
+        body {
+            background-color: transparent !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            display: block !important;
+        }
+        
+        .a4-page {
+            box-shadow: none !important;
+            margin: 0 !important;
+            width: 210mm !important;
+            height: 297mm !important; 
+            page-break-after: always !important;
+            page-break-inside: avoid !important;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+
+        .page-inner {
+            overflow: visible !important; 
+        }
+
+        .a4-page:last-of-type {
+            page-break-after: auto !important;
+        }
+
+        @page {
+            size: A4 portrait;
+            margin: 0; 
+        }
+    }
+</style>
+</head>
+<body>
+
+    <!-- ================= 1. SAYFA ================= -->
+    <div class="a4-page">
+        <div class="page-inner">
+            <img src="logo.png" alt="Apartment Logo" class="center-logo">
+        </div>
+    </div>
+
+    <!-- ================= 2. SAYFA ================= -->
+    <div class="a4-page">
+        <div class="page-inner">
+            
+            <div class="deco-container">
+                <img src="im1.jpeg" class="deco-img img-1" alt="">
+                <img src="im2.jpeg" class="deco-img img-2" alt="">
+                <img src="im3.jpeg" class="deco-img img-3" alt="">
+                <img src="im4.jpeg" class="deco-img img-4" alt="">
+            </div>
+
+            <div class="menu-container">
+                
+                <div class="menu-section">
+                    <div class="category">Organik Yumurtalar</div>
+                    
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Konfi Çırpılmış</span><span class="item-price">385 ₺</span></div>
+                        <div class="item-desc">Yumurta, konfi domates ve biber, ezine peyniri, zeytin, susam, acı yağ, ekşi maya ekmek</div>
+                    </div>
+                    
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Simit Tabak</span><span class="item-price">385 ₺</span></div>
+                        <div class="item-desc">Hellim peyniri, yumurta, pembe domates, nektarin, glutensiz simit</div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Patatesli Göz Yumurta</span><span class="item-price">385 ₺</span></div>
+                        <div class="item-desc">Tahinli ve süzme yoğurtlu dip sos, patates, kaşar peyniri, yumurta</div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Çılbır Kase</span><span class="item-price">345 ₺</span></div>
+                        <div class="item-desc">Süzme yoğurt, kayısı yumurta, kuru domates pesto, tahin, glutensiz simit</div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Menemen Tava</span><span class="item-price">475 ₺</span></div>
+                        <div class="item-desc">Taze domates, yumurta, ezine peyniri, fesleğen, ekşi maya ekmek</div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Ezine Tost</span><span class="item-price">385 ₺</span></div>
+                        <div class="item-desc">Ezine peyniri, taze kekik, pembe domates, Alman turşusu, ekşi maya ekmek</div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Pesto Avokado Apartment Tost</span><span class="item-price">435 ₺</span></div>
+                        <div class="item-desc">Fesleğen pesto sos, avokado, cheddar peyniri, dil peyniri, kaşar peyniri, ekşi maya ekmek, Alman turşusu</div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Somon Tartine</span><span class="item-price">545 ₺</span></div>
+                        <div class="item-desc">Glutensiz ekmek, avokado püre, somon füme, kapari, frenk soğanı, konfi domates</div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <div class="category"><span>Sandviçler</span> <span class="category-price">435 ₺</span></div>
+                    
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Apartment Kruvasan Pesto</span></div>
+                        <div class="item-desc">Sade kruvasan, fesleğen pesto, pembe domates, mozzarella peyniri</div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Hindi Jambon Sandviç</span></div>
+                        <div class="item-desc">Ekşi maya ekmek, remoulade turşu sos, roka, Alman turşusu, hindi jambon, taze kaşar dilim peynir</div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <div class="category">Kaseler</div>
+                    
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Apartment Granola</span><span class="item-price">365 ₺</span></div>
+                        <div class="item-desc">Süzme yoğurt, granola, fıstık ezmesi, chia tohumu, keten tohumu, muz, beyaz üzüm</div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Bircher Muesli</span><span class="item-price">345 ₺</span></div>
+                        <div class="item-desc">Yulaf ezmesi, kabak çekirdeği, chia, keten tohumu, yeşil elma rendesi, tarçın, badem sütü, hurma püresi, muz, file badem</div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Poşe Avokado</span><span class="item-price">365 ₺</span></div>
+                        <div class="item-desc">Avokado, poşe yumurta, roka, parmesan rendesi</div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Fit Tabak</span><span class="item-price">385 ₺</span></div>
+                        <div class="item-desc">Yumurta, avokado, roka, kokteyl domates, ezine peyniri, ceviz, fırınlanmış tatlı patates</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
