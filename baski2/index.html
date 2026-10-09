@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A4 Fırın Menü Tasarımı</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+    *, *::before, *::after { 
+        box-sizing: border-box; 
+    }
+    
+    body { 
+        margin: 0; 
+        padding: 20px; 
+        background-color: #555; 
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+        font-family: 'Montserrat', sans-serif; 
+    }
+
+    /* A4 Sayfa Genel Yapısı */
+    .a4-page {
+        width: 210mm;
+        height: 297mm; 
+        background-color: #9a2027; 
+        padding: 12mm; 
+        position: relative;
+        box-shadow: 0 0 15px rgba(0,0,0,0.5);
+        flex-shrink: 0;
+        overflow: hidden; 
+    }
+
+    /* Çerçevenin içindeki krem zemin */
+    .page-inner {
+        background-color: #FAF8F5; 
+        width: 100%;
+        height: 100%;
+        position: relative;
+    }
+
+    /* --- 1. SAYFA STİLLERİ --- */
+    .center-logo {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 85%;
+        height: auto;
+    }
+
+    /* --- DEKORATİF RESİMLER (2. SAYFA İÇİN) --- */
+    .deco-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden; 
+        z-index: 0;
+    }
+
+    .deco-img {
+        position: absolute;
+        opacity: 0.15; 
+        mix-blend-mode: multiply; 
+        pointer-events: none; 
+        filter: grayscale(100%); 
+    }
+    
+    .img-1 { top: 25mm; left: -10mm; width: 70mm; transform: rotate(-15deg); }
+    .img-2 { bottom: 80mm; right: -15mm; width: 80mm; transform: rotate(20deg); }
+    .img-3 { bottom: 5mm; left: 30mm; width: 65mm; transform: rotate(-8deg); }
+
+    /* --- 2. SAYFA STİLLERİ (Menü İçeriği) --- */
+    .menu-container {
+        padding: 12mm 15mm; 
+        column-count: 2; 
+        column-gap: 15mm; 
+        height: 100%;
+        position: relative;
+        z-index: 1; 
+    }
+
+    .menu-section {
+        break-inside: avoid;
+        page-break-inside: avoid;
+        display: inline-block; 
+        width: 100%; 
+        margin-bottom: 25px; 
+    }
+
+    .category {
+        font-family: 'Dancing Script', cursive;
+        color: #d14b3d; 
+        font-size: 34px; 
+        font-weight: 700;
+        margin-bottom: 12px;
+        letter-spacing: 1px;
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+    }
+
+    /* Kategori fiyatını modern fontla sağa dayamak için */
+    .category-price {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 15px;
+        color: #4a4a4a;
+        font-weight: 700;
+        letter-spacing: normal;
+    }
+
+    .menu-item {
+        margin-bottom: 12px; 
+    }
+
+    .item-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+    }
+
+    .item-name {
+        font-size: 13px; 
+        font-weight: 700;
+        color: #4a4a4a;
+    }
+
+    .item-desc {
+        font-size: 11px; 
+        color: #888;
+        margin-top: 3px;
+        line-height: 1.3;
+        max-width: 95%; 
+        font-weight: 400;
+    }
+
+    /* YAZICI (PRINT) İÇİN ÖZEL KURŞUN GEÇİRMEZ AYARLAR */
+    @media print {
+        body {
+            background-color: transparent !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            display: block !important;
+        }
+        
+        .a4-page {
+            box-shadow: none !important;
+            margin: 0 !important;
+            width: 210mm !important;
+            height: 297mm !important; 
+            page-break-after: always !important;
+            page-break-inside: avoid !important;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+
+        .page-inner {
+            overflow: visible !important; 
+        }
+
+        .a4-page:last-of-type {
+            page-break-after: auto !important;
+        }
+
+        @page {
+            size: A4 portrait;
+            margin: 0; 
+        }
+    }
+</style>
+</head>
+<body>
+
+    <!-- ================= 1. SAYFA ================= -->
+    <div class="a4-page">
+        <div class="page-inner">
+            <img src="logo.png" alt="Apartment Logo" class="center-logo">
+        </div>
+    </div>
+
+    <!-- ================= 2. SAYFA ================= -->
+    <div class="a4-page">
+        <div class="page-inner">
+            
+            <div class="deco-container">
+                <img src="im1.jpeg" class="deco-img img-1" alt="">
+                <img src="im2.jpeg" class="deco-img img-2" alt="">
+                <img src="im3.jpeg" class="deco-img img-3" alt="">
+            </div>
+
+            <div class="menu-container">
+                
+                <div class="menu-section">
+                    <div class="category"><span>Kruvasanlar</span> <span class="category-price">225 ₺</span></div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Sade Kruvasan</span></div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Bademli Kruvasan</span></div>
+                        <div class="item-desc">Tereyağı, şeker, yumurta, toz badem, file badem</div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <div class="category"><span>Kurabiyeler</span> <span class="category-price">135 ₺</span></div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Chocolate Chip Cookie</span></div>
+                        <div class="item-desc">Tereyağı, esmer şeker, yumurta, un, sütlü damla çikolata, fındık</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Amaretti Cevizli Kurabiye</span></div>
+                        <div class="item-desc">Toz ceviz, şeker, tarçın, yumurta beyazı, ceviz</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Amaretti Bademli Kurabiye</span></div>
+                        <div class="item-desc">Toz badem, şeker, limon zest, yumurta beyazı, badem</div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <div class="category"><span>Kekler</span> <span class="category-price">275 ₺</span></div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Muzlu ve Çikolatalı Kek</span></div>
+                        <div class="item-desc">Muz, tereyağı, şeker, un, sütlü damla çikolata</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Limonlu Yaban Mersinli Kek</span></div>
+                        <div class="item-desc">Yumurta, şeker, yoğurt, limon suyu, sıvı yağ, un, yaban mersini</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Ananaslı Unsuz ve Şekersiz Kek</span></div>
+                        <div class="item-desc">Hurma, portakal suyu, yoğurt, yumurta, toz ceviz, ananas</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Vegan Brownie</span></div>
+                        <div class="item-desc">Kaju unu, badem unu, hurma suyu, kakao, hindistan cevizi yağı</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Portakal Brownie</span></div>
+                        <div class="item-desc">Şeker, yumurta, tereyağı, un, portakal suyu, beyaz çikolata</div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <div class="category"><span>Rawlar</span> <span class="category-price">245 ₺</span></div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Bademli Raw</span></div>
+                        <div class="item-desc">Glutensiz yulaf, çiğ badem, hurma, şekersiz bitter çikolata</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Kabak Çekirdek Raw</span></div>
+                        <div class="item-desc">Çiğ kabak çekirdeği, glutensiz yulaf, antep fıstığı tozu, kuru üzüm</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Kaju Raw</span></div>
+                        <div class="item-desc">Çiğ kaju, glutensiz yulaf, hindistan cevizi, hurma, tarçın</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Crunch Chocolate Snickers</span></div>
+                        <div class="item-desc">Hurma, mısır gevreği, fıstık ezmesi, bitter çikolata, hindistan cevizi yağı, yer fıstığı unu, glutensiz yulaf unu</div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <div class="category"><span>Tartlar (Kişler)</span> <span class="category-price">295 ₺</span></div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Kuşkonmazlı Kiş</span></div>
+                        <div class="item-desc">Tam buğday unu, tereyağı, toz şeker, krema, süt, yumurta, mozzarella peyniri, parmesan, sarımsak, kuşkonmaz</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Mantarlı Kiş</span></div>
+                        <div class="item-desc">Tam buğday unu, tereyağı, toz şeker, krema, süt, yumurta, soğan, mantar, parmesan</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Ispanaklı Kiş</span></div>
+                        <div class="item-desc">Tam buğday unu, tereyağı, toz şeker, krema, süt, yumurta, mozzarella peyniri, sarımsak, ıspanak, parmesan</div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <div class="category"><span>Tuzlular</span> <span class="category-price">135 ₺</span></div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Sebzeli ve Lorlu Glutensiz Tuzlu Kek</span></div>
+                        <div class="item-desc">Mısır unu, glutensiz un, toz şeker, süt, tereyağı, yumurta, kabak, taze soğan, dereotu, kapya biber, lor peyniri</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Siyez Poğaça</span></div>
+                        <div class="item-desc">Lor peyniri, tereyağı, yoğurt, yumurta beyazı, siyez unu</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Tam Buğday Poğaça</span></div>
+                        <div class="item-desc">Lor peyniri, tereyağı, yoğurt, yumurta beyazı, tam buğday unu</div>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <div class="category"><span>Cheesecake</span> <span class="category-price">325 ₺</span></div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Vişne ve Çilek Cheesecake</span></div>
+                        <div class="item-desc">Labne, şeker, un, yumurta, tereyağı, vişne ve çilek</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-header"><span class="item-name">Limonlu Cheesecake</span></div>
+                        <div class="item-desc">Labne, şeker, un, yumurta, tereyağı, limon curd</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
